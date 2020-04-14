@@ -1,0 +1,44 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "react-devtools": "react-devtools",
+    "mock-server": "json-server ./mock-db/db.json"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "random-string": "^0.2.0",
+    "@react-native-community/masked-view": "^0.1.5",
+    "@react-navigation/bottom-tabs": "^5.2.4",
+    "axios": "^0.19.2",
+    "expo": "~36.0.0",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-button": "^2.1.0",
+    "react-native-modalbox": "^2.0.0",
+    "react-native-randombytes": "^3.0.0",
+    "react-native-swipeout": "^2.3.6",
+    "react-native-vector-icons": "^4.4.2",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "^4.2.1",
+    "react-navigation-stack": "^2.2.1",
+    "react-navigation-tabs": "^2.8.7",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0",
+    "json-server": "^0.16.1",
+    "react-devtools": "^3.6.3"
+  },
+  "private": true
+}
