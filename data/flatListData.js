@@ -1,9 +1,4 @@
-/*
-Mr Nguyen Duc Hoang
-https://www.youtube.com/c/nguyenduchoang
-Email: sunlight4d@gmail.com
-FlatList input data
-*/
+
 var flatListData = [
     {
         "key": "598a678278fee204ee51cd2c",

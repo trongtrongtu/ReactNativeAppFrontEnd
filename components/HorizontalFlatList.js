@@ -1,9 +1,3 @@
-/*
-Mr Nguyen Duc Hoang
-https://www.youtube.com/c/nguyenduchoang
-Email: sunlight4d@gmail.com
-Horizontal FlatList Component
-*/
 import React, { Component } from 'react';
 import {
     AppRegistry,

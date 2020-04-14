@@ -1,6 +1,4 @@
-/**
- * Created by hoangnd on 7/5/17.
- */
+
 import React from 'react';
 import {Text, View, Button, Image} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

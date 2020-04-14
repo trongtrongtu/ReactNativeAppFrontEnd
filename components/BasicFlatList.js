@@ -1,10 +1,3 @@
-/*
-Mr Nguyen Duc Hoang
-https://www.youtube.com/c/nguyenduchoang
-Email: sunlight4d@gmail.com
-FlatList Component with Images
-Add newFood to FlatList
-*/
 import React, { Component } from 'react';
 import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, RefreshControl } from 'react-native';
 import flatListData from '../data/flatListData';
@@ -23,10 +16,10 @@ class FlatListItem extends Component {
             numberOfRefresh: 0,
             item: {}
         };
-    }
+    }    
     refreshFlatListItem = (changedItem) => {
         console.log(`changedItem = ${JSON.stringify(changedItem)}`);
-        this.setState({ item: changedItem });
+        this.setState({item: changedItem});
         console.log(`item = ${JSON.stringify(this.state.item)}`);
     }
     render() {
@@ -44,7 +37,7 @@ class FlatListItem extends Component {
                 {
                     onPress: () => {
                         // alert("Update");
-                        //this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
+                        // this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
                         let selectedItem = this.state.item.name ? this.state.item : this.props.item;
                         this.props.parentFlatList.refs.editModal.showEditModal(selectedItem, this);
                     },
@@ -195,13 +188,13 @@ export default class BasicFlatList extends Component {
                     keyExtractor={(item, index) => item.name}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.state.refreshing}
+                            refreshing={this.state.refreshing}       
                             onRefresh={this.onRefresh}
                         />
                     }
-                >
-                </FlatList>
-                <AddModal ref={'addModal'} parentFlatList={this} >
+            >
+            </FlatList>
+            <AddModal ref={'addModal'} parentFlatList={this} >
 
                 </AddModal>
                 <EditModal ref={'editModal'} parentFlatList={this}>

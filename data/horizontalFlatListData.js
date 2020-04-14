@@ -1,9 +1,4 @@
-/*
-Mr Nguyen Duc Hoang
-https://www.youtube.com/c/nguyenduchoang
-Email: sunlight4d@gmail.com
-Horizontal FlatList input data
-*/
+
 var horizontalStatus = {
     rainy: {
         ios: "ios-rainy",
