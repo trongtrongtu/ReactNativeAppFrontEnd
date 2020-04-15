@@ -6,13 +6,13 @@ import {
   Text,
   View
 } from 'react-native';
-import BasicFlatList from './components/BasicFlatList';
 import { createAppContainer } from 'react-navigation';
+import AppNavigator from './AppNavigator';
 
-
+const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
-    return <BasicFlatList />;
+    return <AppContainer />;
   }
 }
 

@@ -7,15 +7,15 @@ import {
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 import flatListData from '../data/flatListData';
-import { insertNewFoodToServer } from '../networking/Server';
+import { insertNewProductToServer } from '../networking/Server';
 
 var screen = Dimensions.get('window');
 export default class AddModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newFoodName: '',
-            newFoodDescription: ''
+            newProductName: '',
+            newProductDescription: ''
         };
     }
     showAddModal = () => {
@@ -38,7 +38,6 @@ export default class AddModal extends Component {
                 position='center'
                 backdrop={true}
                 onClosed={() => {
-                    // alert("Modal closed");
                 }}
             >
                 <Text style={{
@@ -46,7 +45,7 @@ export default class AddModal extends Component {
                     fontWeight: 'bold',
                     textAlign: 'center',
                     marginTop: 40
-                }}>New food's information</Text>
+                }}>New product's information</Text>
                 <TextInput
                     style={{
                         height: 40,
@@ -57,9 +56,9 @@ export default class AddModal extends Component {
                         marginBottom: 10,
                         borderBottomWidth: 1
                     }}           
-                    onChangeText={(text) => this.setState({ newFoodName: text })}
+                    onChangeText={(text) => this.setState({ newProductName: text })}
                     placeholder="Enter new food's name"
-                    value={this.state.newFoodName}                 
+                    value={this.state.newProductName}                 
                 />
                 <TextInput
                     style={{
@@ -72,9 +71,9 @@ export default class AddModal extends Component {
                         borderBottomWidth: 1
                     }}
                     
-                    onChangeText={(text) => this.setState({ newFoodDescription: text })}
-                    placeholder="Enter new food's description"
-                    value={this.state.newFoodDescription}
+                    onChangeText={(text) => this.setState({ newProductDescription: text })}
+                    placeholder="Enter new product's description"
+                    value={this.state.newProductDescription}
                 />
                 <Button
                     style={{ fontSize: 18, color: 'white' }}
@@ -87,20 +86,17 @@ export default class AddModal extends Component {
                         backgroundColor: 'mediumseagreen'
                     }}
                     onPress={() => {
-                         if (this.state.newFoodName.length == 0 || this.state.newFoodDescription.length == 0) {
-                            alert("You must enter food's name and description");
+                         if (this.state.newProductName.length == 0 || this.state.newProductDescription.length == 0) {
+                            alert("You must enter product's name and description");
                             return;
                         }       
                         const newKey = this.generateKey(24);
-                        const newFood = {
+                        const newProduct = {
                             key: newKey,
-                            name: this.state.newFoodName,
-                            // imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/64/Foods_%28cropped%29.jpg",
-                            foodDescription: this.state.newFoodDescription
-                        };    
-                        // flatListData.push(newFood);    
-                        // this.props.parentFlatList.refreshFlatList(newKey);                                
-                        insertNewFoodToServer(newFood).then(result => {
+                            name: this.state.newProductName,
+                            productDescription: this.state.newProductDescription
+                        };                                   
+                        insertNewProductToServer(newProduct).then(result => {
                             if (result == 'ok'){
                                 this.props.parentFlatlist.refreshDataFromServer();
                             }

@@ -1,10 +1,3 @@
-/*
-Mr Nguyen Duc Hoang
-https://www.youtube.com/c/nguyenduchoang
-Email: sunlight4d@gmail.com
-LifeCycle Component => example of LifeCycle in React Native
-*/
-
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, Platform } from 'react-native';
 class LifeCycle extends Component {

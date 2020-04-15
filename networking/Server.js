@@ -1,22 +1,22 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, SectionList, StyleSheet, Text, View, Alert, Platform } from 'react-native';
-const apiGetAllFoods = 'http://192.168.1.138:3001/list_all_foods';
-const apiInsertNewFood = 'http://192.168.1.138:3001/insert_new_food';
-const apiUpdateAFood = 'http://192.168.1.138:3001/update_a_food';
+const apiGetAllProducts = 'http://192.168.1.138:3001/list_all_products';
+const apiInsertNewProduct = 'http://192.168.1.138:3001/insert_new_product';
+const apiUpdateAProduct = 'http://192.168.1.138:3001/update_a_product';
 
-async function getFoodsFromServer() {
+async function getProductsFromServer() {
     try {
-        let response = await fetch(apiGetAllFoods);
+        let response = await fetch(apiGetAllProducts);
         let responseJson = await response.json();
-        return responseJson.data; //list of foods
+        return responseJson.data;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
 }
-async function insertNewFoodToServer(params) {
+async function insertNewProductToServer(params) {
     try {
-        let response = await fetch(apiInsertNewFood, {
+        let response = await fetch(apiInsertNewProduct, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -30,9 +30,9 @@ async function insertNewFoodToServer(params) {
         console.error(`Error is : ${error}`);
     }
 }
-async function updateAFood(params) {
+async function updateAProduct(params) {
     try {
-        let response = await fetch(apiUpdateAFood, {
+        let response = await fetch(apiUpdateAProduct, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -46,6 +46,6 @@ async function updateAFood(params) {
         console.error(`Error is : ${error}`);
     }
 }
-export { getFoodsFromServer };
-export { insertNewFoodToServer };
-export { updateAFood };
+export { getProductsFromServer };
+export { insertNewProductToServer };
+export { updateAProduct };

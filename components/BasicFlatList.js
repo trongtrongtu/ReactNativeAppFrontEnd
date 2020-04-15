@@ -6,7 +6,7 @@ import Swipeout from 'react-native-swipeout';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
 
-import { getFoodsFromServer } from '../networking/Server';
+import { getProductsFromServer } from '../networking/Server';
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -36,8 +36,6 @@ class FlatListItem extends Component {
             right: [
                 {
                     onPress: () => {
-                        // alert("Update");
-                        // this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
                         let selectedItem = this.state.item.name ? this.state.item : this.props.item;
                         this.props.parentFlatList.refs.editModal.showEditModal(selectedItem, this);
                     },
@@ -54,7 +52,6 @@ class FlatListItem extends Component {
                                 {
                                     text: 'Yes', onPress: () => {
                                         flatListData.splice(this.props.index, 1);
-                                        //Refresh FlatList ! 
                                         this.props.parentFlatList.refreshFlatList(deletingRow);
                                     }
                                 },
@@ -76,12 +73,11 @@ class FlatListItem extends Component {
                 }}>
                     <View style={{
                         flex: 1,
-                        flexDirection: 'row',
-                        // backgroundColor: this.props.index % 2 == 0 ? 'mediumseagreen': 'tomato'                
+                        flexDirection: 'row',               
                         backgroundColor: 'mediumseagreen'
                     }}>
                         <Image
-                            source={{ uri: 'http://' + this.props.item.imageUrl }}
+                            source={{ uri: this.props.item.imageUrl }}
                             style={{ width: 100, height: 100, margin: 5 }}
                         >
 
@@ -92,7 +88,7 @@ class FlatListItem extends Component {
                             height: 100
                         }}>
                             <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
-                            <Text style={styles.flatListItem}>{this.state.item.foodDescription ? this.state.item.foodDescription : this.props.item.foodDescription}</Text>
+                            <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
                         </View>
                     </View>
                     <View style={{
@@ -116,12 +112,15 @@ const styles = StyleSheet.create({
 });
 
 export default class BasicFlatList extends Component {
+    static navigationOptions = {
+        title: 'Home',
+      };
     constructor(props) {
         super(props);
         this.state = ({
             deletedRowKey: null,
             refreshing: false,
-            foodsFromServer: []
+            productsFromServer: []
         });
         this._onPressAdd = this._onPressAdd.bind(this);
     }
@@ -130,11 +129,11 @@ export default class BasicFlatList extends Component {
     }
     refreshDataFromServer = () => {
         this.setState({ refreshing: true });
-        getFoodsFromServer().then((foods) => {
-            this.setState({ foodsFromServer: foods });
+        getProductsFromServer().then((products) => {
+            this.setState({ productsFromServer: products });
             this.setState({ refreshing: false });
         }).catch((error) => {
-            this.setState({ foodsFromServer: [] });
+            this.setState({ productsFromServer: [] });
             this.setState({ refreshing: false });
         });
     }
@@ -150,12 +149,11 @@ export default class BasicFlatList extends Component {
         this.refs.flatList.scrollToEnd();
     }
     _onPressAdd() {
-        // alert("You add Item");
         this.refs.addModal.showAddModal();
     }
     render() {
         return (
-            <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}>
+            <View>
                 <View style={{
                     backgroundColor: 'tomato',
                     flexDirection: 'row',
@@ -176,10 +174,8 @@ export default class BasicFlatList extends Component {
                 </View>
                 <FlatList
                     ref={"flatList"}
-                    /* data={flatListData} */
-                    data={this.state.foodsFromServer}
+                    data={this.state.productsFromServer}
                     renderItem={({ item, index }) => {
-                        //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
                         return (
                             <FlatListItem item={item} index={index} parentFlatList={this}>
 
