@@ -107,7 +107,7 @@ export default class EditModal extends Component {
                             if (result === 'ok') {
                                 this.state.flatlistItem.refreshFlatListItem({
                                     _id: this.state.key,
-                                    name: this.state.foodName,
+                                    name: this.state.productName,
                                     productDescription: this.state.productDescription
                                 });
                                 this.refs.myModal.close();
