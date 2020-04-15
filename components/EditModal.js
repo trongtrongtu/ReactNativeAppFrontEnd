@@ -19,11 +19,11 @@ export default class EditModal extends Component {
             productDescription: ''
         };
     }
-    showEditModal = (editingFood, flatlistItem) => {        
+    showEditModal = (editingProduct, flatlistItem) => {        
         this.setState({
             key: editingProduct._id,
             productName: editingProduct.name,
-            productDescription: editingProduct.productsDescription,
+            productDescription: editingProduct.productDescription,
             flatlistItem: flatlistItem
         });
         this.refs.myModal.open();

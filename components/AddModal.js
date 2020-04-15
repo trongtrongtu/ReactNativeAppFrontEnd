@@ -57,7 +57,7 @@ export default class AddModal extends Component {
                         borderBottomWidth: 1
                     }}           
                     onChangeText={(text) => this.setState({ newProductName: text })}
-                    placeholder="Enter new food's name"
+                    placeholder="Enter new product's name"
                     value={this.state.newProductName}                 
                 />
                 <TextInput
@@ -72,7 +72,7 @@ export default class AddModal extends Component {
                     }}
                     
                     onChangeText={(text) => this.setState({ newProductDescription: text })}
-                    placeholder="Enter new product's description"
+                    placeholder="Enter new product's price"
                     value={this.state.newProductDescription}
                 />
                 <Button
@@ -87,7 +87,7 @@ export default class AddModal extends Component {
                     }}
                     onPress={() => {
                          if (this.state.newProductName.length == 0 || this.state.newProductDescription.length == 0) {
-                            alert("You must enter product's name and description");
+                            alert("You must enter product's name and price");
                             return;
                         }       
                         const newKey = this.generateKey(24);
