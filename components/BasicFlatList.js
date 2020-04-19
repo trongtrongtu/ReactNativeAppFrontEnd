@@ -7,6 +7,7 @@ import AddModal from './AddModal';
 import EditModal from './EditModal';
 
 import { getProductsFromServer } from '../networking/Server';
+import { DeleteAProduct } from '../networking/Server';
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -51,8 +52,9 @@ class FlatListItem extends Component {
                                 { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                                 {
                                     text: 'Yes', onPress: () => {
-                                        flatListData.splice(this.props.index, 1);
-                                        this.props.parentFlatList.refreshFlatList(deletingRow);
+                                        // flatListData.splice(this.props.index, 1);
+                                        // this.props.parentFlatList.refreshFlatList(deletingRow);
+                                        DeleteAProduct(this.state.item.name);
                                     }
                                 },
                             ],

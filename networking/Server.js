@@ -4,6 +4,7 @@ import { AppRegistry, SectionList, StyleSheet, Text, View, Alert, Platform } fro
 const apiGetAllProducts = 'http://192.168.1.138:3001/list_all_products';
 const apiInsertNewProduct = 'http://192.168.1.138:3001/insert_new_product';
 const apiUpdateAProduct = 'http://192.168.1.138:3001/update_a_product';
+const apiDeleteAProduct = 'http://192.168.1.138:3001/delete_a_product';
 
 async function getProductsFromServer() {
     try {
@@ -46,6 +47,23 @@ async function updateAProduct(params) {
         console.error(`Error is : ${error}`);
     }
 }
+async function DeleteAProduct(params) {
+    try {
+        let response = await fetch(apiDeleteAProduct, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params)
+        });
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
+export { DeleteAProduct };
