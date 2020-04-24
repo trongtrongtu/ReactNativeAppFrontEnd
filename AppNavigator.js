@@ -39,7 +39,7 @@ CartStack.navigationOptions = {
 }
 const OrederStack = createStackNavigator({ Orders });
 OrederStack.navigationOptions = {
-    tabBarLabel: 'Oreders',
+    tabBarLabel: 'Orders',
     tabBarIcon: ({ focused }) => {
         return <Icon name="ios-wallet"
             size={36}
