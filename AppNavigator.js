@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import BasicFlatList from './components/BasicFlatList';
 import Cart from './screens/Cart';
-import Orders from './screens/Orders';
+import Category from './screens/Category';
+import Categories from './screens/Categories';
 import Settings from './screens/Settings';
 
 const color = {
@@ -13,10 +14,10 @@ const color = {
     INACTIVE: '#ccc'
 }
 
-const CategoryStack = createStackNavigator({
+const ProductStack = createStackNavigator({
     BasicFlatList
 });
-CategoryStack.navigationOptions = {
+ProductStack.navigationOptions = {
     tabBarLabel: 'Home',
     tabBarIcon: ({ focused }) => {
         return <Icon name="ios-planet"
@@ -37,9 +38,12 @@ CartStack.navigationOptions = {
         />
     }
 }
-const OrederStack = createStackNavigator({ Orders });
-OrederStack.navigationOptions = {
-    tabBarLabel: 'Orders',
+const CategoriesStack = createStackNavigator({ 
+    Categories,
+    Category
+});
+CategoriesStack.navigationOptions = {
+    tabBarLabel: 'Categories',
     tabBarIcon: ({ focused }) => {
         return <Icon name="ios-wallet"
             size={36}
@@ -59,9 +63,9 @@ SettingStack.navigationOptions = {
 }
 
 const AppNavigator = createBottomTabNavigator({
-    CategoryStack,
+    ProductStack,
+    CategoriesStack,
     CartStack,
-    OrederStack,
     SettingStack
 })
 export default AppNavigator;
