@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, RefreshControl } from 'react-native';
+import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, RefreshControl, TouchableOpacity } from 'react-native';
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 
@@ -17,10 +17,10 @@ class FlatListItem extends Component {
             numberOfRefresh: 0,
             item: {}
         };
-    }    
+    }
     refreshFlatListItem = (changedItem) => {
         console.log(`changedItem = ${JSON.stringify(changedItem)}`);
-        this.setState({item: changedItem});
+        this.setState({ item: changedItem });
         console.log(`item = ${JSON.stringify(this.state.item)}`);
     }
     render() {
@@ -75,7 +75,7 @@ class FlatListItem extends Component {
                 }}>
                     <View style={{
                         flex: 1,
-                        flexDirection: 'row',               
+                        flexDirection: 'row',
                         backgroundColor: 'mediumseagreen'
                     }}>
                         <Image
@@ -91,6 +91,17 @@ class FlatListItem extends Component {
                         }}>
                             <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
                             <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
+                        </View>
+                        <View>
+                            <TouchableOpacity>
+                                <Text style={{
+                                    textTransform: 'uppercase',
+                                    fontSize: 16,
+                                    color: 'white',
+                                    marginTop: 85,
+                                    marginRight: 5
+                                }}>MUA +</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{
@@ -116,7 +127,7 @@ const styles = StyleSheet.create({
 export default class BasicFlatList extends Component {
     static navigationOptions = {
         title: 'Home',
-      };
+    };
     constructor(props) {
         super(props);
         this.state = ({
@@ -155,7 +166,7 @@ export default class BasicFlatList extends Component {
     }
     render() {
         return (
-            <View>
+            <View style={{ marginBottom: 63 }}>
                 <View style={{
                     backgroundColor: 'tomato',
                     flexDirection: 'row',
@@ -186,13 +197,13 @@ export default class BasicFlatList extends Component {
                     keyExtractor={(item, index) => item.name}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.state.refreshing}       
+                            refreshing={this.state.refreshing}
                             onRefresh={this.onRefresh}
                         />
                     }
-            >
-            </FlatList>
-            <AddModal ref={'addModal'} parentFlatList={this} >
+                >
+                </FlatList>
+                <AddModal ref={'addModal'} parentFlatList={this} >
 
                 </AddModal>
                 <EditModal ref={'editModal'} parentFlatList={this}>
