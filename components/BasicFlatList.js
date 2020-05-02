@@ -8,6 +8,7 @@ import EditModal from './EditModal';
 
 import { getProductsFromServer } from '../networking/Server';
 import { DeleteAProduct } from '../networking/Server';
+import { connect } from 'react-redux';
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -93,7 +94,7 @@ class FlatListItem extends Component {
                             <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
                         </View>
                         <View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {(item) => this.props.onPress(item)}>
                                 <Text style={{
                                     textTransform: 'uppercase',
                                     fontSize: 16,
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class BasicFlatList extends Component {
+class BasicFlatList extends Component {
     static navigationOptions = {
         title: 'Home',
     };
@@ -190,9 +191,10 @@ export default class BasicFlatList extends Component {
                     data={this.state.productsFromServer}
                     renderItem={({ item, index }) => {
                         return (
-                            <FlatListItem item={item} index={index} parentFlatList={this}>
-
-                            </FlatListItem>);
+                            <FlatListItem item={item} index={index} parentFlatList={this}
+                                onPress={this.props.addItemToCart}
+                            />
+                        );
                     }}
                     keyExtractor={(item, index) => item.name}
                     refreshControl={
@@ -213,3 +215,13 @@ export default class BasicFlatList extends Component {
         );
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addItemToCart: (product) => dispatch({
+            type:
+                'ADD_TO_CART', payload: product
+        })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(BasicFlatList);

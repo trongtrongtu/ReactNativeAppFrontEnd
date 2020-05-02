@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator, TextInput, Alert } from 'react-native';
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
-export default class Cart extends React.Component {
+class Cart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -100,7 +101,7 @@ export default class Cart extends React.Component {
                                             <Image source={{ uri: item.thumbnailImage }} style={[styles.centerElement, { height: 60, width: 60, backgroundColor: '#eeeeee' }]} />
                                         </TouchableOpacity>
                                         <View style={{ flexGrow: 1, flexShrink: 1, alignSelf: 'center' }}>
-                                            <Text numberOfLines={1} style={{ fontSize: 15 }}>{item.name}</Text>
+                                            <Text numberOfLines={1} style={{ fontSize: 15 }}>{this.props.cartItems.length}</Text>
                                             <Text numberOfLines={1} style={{ color: '#8f8f8f' }}>{item.color ? 'Variation: ' + item.color : ''}</Text>
                                             <Text numberOfLines={1} style={{ color: '#333333', marginBottom: 10 }}>${item.qty * item.salePrice}</Text>
                                             <View style={{ flexDirection: 'row' }}>
@@ -152,3 +153,11 @@ export default class Cart extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        cartItems: state
+    }
+}
+
+export default connect(mapStateToProps)(Cart);

@@ -3,12 +3,15 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import BasicFlatList from './components/BasicFlatList';
-import Cart from './screens/Cart2';
+import ListItem from './screens/ListItem';
+import Cart from './screens/CartItem';
 import Category from './screens/Category';
 import Categories from './screens/Categories';
 import Settings from './screens/Profile2';
 import { View, Text } from 'react-native';
+import CartIcon from './components/CartIcon';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const color = {
     ACTIVE: '#147efb',
@@ -16,7 +19,7 @@ const color = {
 }
 
 const ProductStack = createStackNavigator({
-    BasicFlatList
+    ListItem
 });
 ProductStack.navigationOptions = {
     tabBarLabel: 'Home',
@@ -34,24 +37,9 @@ CartStack.navigationOptions = {
     tabBarLabel: 'Cart',
     tabBarIcon: ({ focused }) => {
         return <View>
-            <View
-          style={{
-            // On React Native < 0.57 overflow outside of parent will not work on Android, see https://git.io/fhLJ8
-            position: 'absolute',
-            right: -6,
-            top: -3,
-            backgroundColor: 'red',
-            borderRadius: 6,
-            width: 12,
-            height: 12,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
-            0
-          </Text>
-        </View>
+            <Provider store={store}>
+                <CartIcon />
+            </Provider>
             <Icon name="ios-cart"
                 size={36}
                 color={focused ? color.ACTIVE : color.INACTIVE}
@@ -72,7 +60,9 @@ CategoriesStack.navigationOptions = {
         />
     }
 }
-const SettingStack = createStackNavigator({ Settings })
+const SettingStack = createStackNavigator({ 
+    Settings 
+});
 SettingStack.navigationOptions = {
     tabBarLabel: 'Settings',
     tabBarIcon: ({ focused }) => {

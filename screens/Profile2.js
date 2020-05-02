@@ -70,7 +70,7 @@ const Profile = () => {
                       >
                         2K
                       </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                      <Text size={14} color="white">
                         Friends
                       </Text>
                     </Block>
@@ -83,7 +83,7 @@ const Profile = () => {
                       >
                         26
                       </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                      <Text size={14} color="white">
                         Comments
                         </Text>
                     </Block>
@@ -96,7 +96,7 @@ const Profile = () => {
                       >
                         48
                       </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                      <Text size={14} color="white">
                         Bookmarks
                       </Text>
                     </Block>
@@ -141,7 +141,6 @@ const Profile = () => {
                 muted
                 style={{
                   textAlign: 'center',
-                  fontFamily: 'montserrat-regular',
                   zIndex: 2,
                   lineHeight: 25,
                   color: '#9A9A9A',
