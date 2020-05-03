@@ -10,8 +10,6 @@ import Categories from './screens/Categories';
 import Settings from './screens/Profile2';
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
-import { Provider } from 'react-redux';
-import store from './store';
 
 const color = {
     ACTIVE: '#147efb',
@@ -37,9 +35,7 @@ CartStack.navigationOptions = {
     tabBarLabel: 'Cart',
     tabBarIcon: ({ focused }) => {
         return <View>
-            <Provider store={store}>
-                <CartIcon />
-            </Provider>
+            <CartIcon />
             <Icon name="ios-cart"
                 size={36}
                 color={focused ? color.ACTIVE : color.INACTIVE}
@@ -60,8 +56,8 @@ CategoriesStack.navigationOptions = {
         />
     }
 }
-const SettingStack = createStackNavigator({ 
-    Settings 
+const SettingStack = createStackNavigator({
+    Settings
 });
 SettingStack.navigationOptions = {
     tabBarLabel: 'Settings',

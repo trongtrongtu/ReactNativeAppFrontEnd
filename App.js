@@ -8,11 +8,14 @@ import {
 } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import AppNavigator from './AppNavigator';
+import CartProvider from './contexts/Cart';
 
 const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
-    return <AppContainer />;
+    return <CartProvider>
+      <AppContainer />
+    </CartProvider>;
   }
 }
 

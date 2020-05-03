@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { CartContexts } from '../contexts/Cart';
 
-const CartIcon = (props) => {
+const CartIcon = () => {
     return (
         <View
             style={{
@@ -17,15 +17,17 @@ const CartIcon = (props) => {
                 alignItems: 'center',
             }}
         >
-            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
-                {props.cartItems.length}
-            </Text>
+            <CartContexts.Consumer>
+                {({ cartItems }) => (
+                    <TouchableOpacity>
+                        <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+                            {cartItems.length}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+            </CartContexts.Consumer>
         </View>
     );
 }
-const mapStateToProps = (state) => {
-    return {
-        cartItems: state
-    }
-}
-export default connect(mapStateToProps)(CartIcon);
+
+export default CartIcon;

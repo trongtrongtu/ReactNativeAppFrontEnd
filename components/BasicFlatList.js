@@ -8,7 +8,7 @@ import EditModal from './EditModal';
 
 import { getProductsFromServer } from '../networking/Server';
 import { DeleteAProduct } from '../networking/Server';
-import { connect } from 'react-redux';
+import { CartContexts } from '../contexts/Cart'
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -94,15 +94,19 @@ class FlatListItem extends Component {
                             <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
                         </View>
                         <View>
-                            <TouchableOpacity onPress = {(item) => this.props.onPress(item)}>
-                                <Text style={{
-                                    textTransform: 'uppercase',
-                                    fontSize: 16,
-                                    color: 'white',
-                                    marginTop: 85,
-                                    marginRight: 5
-                                }}>MUA +</Text>
-                            </TouchableOpacity>
+                            <CartContexts.Consumer>
+                                {({ addToCart }) => (
+                                    <TouchableOpacity onPress={() => addToCart(this.state.item)}>
+                                        <Text style={{
+                                            textTransform: 'uppercase',
+                                            fontSize: 16,
+                                            color: 'white',
+                                            marginTop: 85,
+                                            marginRight: 5
+                                        }}>MUA +</Text>
+                                    </TouchableOpacity>
+                                )}
+                            </CartContexts.Consumer>
                         </View>
                     </View>
                     <View style={{
@@ -215,13 +219,5 @@ class BasicFlatList extends Component {
         );
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addItemToCart: (product) => dispatch({
-            type:
-                'ADD_TO_CART', payload: product
-        })
-    }
-}
 
-export default connect(null, mapDispatchToProps)(BasicFlatList);
+export default BasicFlatList;
