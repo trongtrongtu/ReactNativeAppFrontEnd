@@ -12,7 +12,6 @@ export default class CartProvider extends Component {
     }
 
     addToCart(item){
-        console.log("Adding to cart", item);
         this.setState({
             cartItems: this.state.cartItems.concat(item)
         });

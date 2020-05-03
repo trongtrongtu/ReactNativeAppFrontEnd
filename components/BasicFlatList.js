@@ -96,7 +96,7 @@ class FlatListItem extends Component {
                         <View>
                             <CartContexts.Consumer>
                                 {({ addToCart }) => (
-                                    <TouchableOpacity onPress={() => addToCart(this.state.item)}>
+                                    <TouchableOpacity onPress={() => addToCart(this.props.item)}>
                                         <Text style={{
                                             textTransform: 'uppercase',
                                             fontSize: 16,
