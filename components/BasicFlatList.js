@@ -16,7 +16,7 @@ class FlatListItem extends Component {
         this.state = {
             activeRowKey: null,
             numberOfRefresh: 0,
-            item: {}
+            item: []
         };
     }
     refreshFlatListItem = (changedItem) => {
