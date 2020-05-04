@@ -79,12 +79,13 @@ class FlatListItem extends Component {
                         flexDirection: 'row',
                         backgroundColor: 'mediumseagreen'
                     }}>
-                        <Image
-                            source={{ uri: this.props.item.imageUrl }}
-                            style={{ width: 100, height: 100, margin: 5 }}
-                        >
-
-                        </Image>
+                        <TouchableOpacity activeOpacity={0.5}>
+                            <Image
+                                source={{ uri: this.props.item.imageUrl }}
+                                style={{ width: 100, height: 100, margin: 5 }}
+                            >
+                            </Image>
+                        </TouchableOpacity>
                         <View style={{
                             flex: 1,
                             flexDirection: 'column',
@@ -130,9 +131,6 @@ const styles = StyleSheet.create({
 });
 
 class BasicFlatList extends Component {
-    static navigationOptions = {
-        title: 'Home',
-    };
     constructor(props) {
         super(props);
         this.state = ({
