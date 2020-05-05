@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import ListItem from './screens/ListItem';
 import Cart from './screens/CartItem';
-import Category from './screens/Category';
+import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
 import Settings from './screens/Profile2';
 import { View, Text } from 'react-native';
@@ -45,7 +45,7 @@ CartStack.navigationOptions = {
 }
 const CategoriesStack = createStackNavigator({
     Categories,
-    Category
+    ListProductWithCategory
 });
 CategoriesStack.navigationOptions = {
     tabBarLabel: 'Categories',

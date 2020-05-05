@@ -1,40 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, ScrollView, View, FlatList } from 'react-native';
 import CategoryListItem from '../components/CategoryListItem';
+import { getCategoriesFromServer } from '../networking/Server';
 
 export default class Categories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [
-        {
-          "id": 1,
-          "name": "Máy tính Asus"
-        },
-        {
-          "id": 2,
-          "name": "Máy tính Apple"
-        },
-        {
-          "id": 3,
-          "name": "Máy tính Hp"
-        },
-        {
-          "id": 4,
-          "name": "Máy tính Dell"
-        },
-        {
-          "id": 5,
-          "name": "Máy tính Lenovo"
-        },
-        {
-          "id": 6,
-          "name": "Máy tính Msi"
-        }
-      ]
+      categories: []
     };
   }
 
+  componentDidMount() {
+    this.refreshDataFromServer();
+  }
+  refreshDataFromServer = () => {
+    this.setState({ refreshing: true });
+    getCategoriesFromServer().then((categories) => {
+      this.setState({ categories: categories });
+      this.setState({ refreshing: false });
+    }).catch((error) => {
+      this.setState({ categories: [] });
+      this.setState({ refreshing: false });
+    });
+  }
   render() {
     const { navigation } = this.props;
     const { categories } = this.state;
@@ -45,11 +34,11 @@ export default class Categories extends React.Component {
           renderItem={({ item }) =>
             <CategoryListItem
               category={item}
-              onPress={() => navigation.navigate('Category', {
+              onPress={() => navigation.navigate('ListProductWithCategory', {
                 categoryName: item.name
               })} />
           }
-          keyExtractor={item => `${item.id}`}
+          keyExtractor={item => `${item.name}`}
           style={styles.title}
           contentContainerStyle={{}}
         />
