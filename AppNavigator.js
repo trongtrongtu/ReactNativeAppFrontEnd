@@ -7,7 +7,7 @@ import ListItem from './screens/ListItem';
 import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
-import Settings from './screens/Profile2';
+import Settings from './screens/Settings';
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
 
