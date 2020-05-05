@@ -1,5 +1,5 @@
 import React from 'react'
-import Cart from '../screens/Cart2';
+import Cart from './Cart';
 import { CartContexts } from '../contexts/Cart'
 
 export default function CategoryListItem() {
