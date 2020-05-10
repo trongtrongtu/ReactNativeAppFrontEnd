@@ -47,7 +47,8 @@ CartStack.navigationOptions = {
 }
 const CategoriesStack = createStackNavigator({
     Categories,
-    ListProductWithCategory
+    ListProductWithCategory,
+    ProudctDetail
 });
 CategoriesStack.navigationOptions = {
     tabBarLabel: 'Categories',

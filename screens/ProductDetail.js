@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export default class CartSreen extends React.Component {
-    static navigationOptions = {
-        title: 'Product Detail'
-      };
+export default class ProductDetail extends React.Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: navigation.getParam('ProductDetail')
+        };
+    };
 
       render() {
           return <Text>Product Detail</Text>

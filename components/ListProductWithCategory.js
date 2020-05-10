@@ -9,7 +9,7 @@ import { getProductsWithCategoryFromServer } from '../networking/Server';
 import { DeleteAProduct } from '../networking/Server';
 import { CartContexts } from '../contexts/Cart'
 
-class FlatListItem extends Component {
+class FlatListItemCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,7 +78,7 @@ class FlatListItem extends Component {
                         flexDirection: 'row',
                         backgroundColor: 'mediumseagreen'
                     }}>
-                        <TouchableOpacity activeOpacity={0.5}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
                             <Image
                                 source={{ uri: this.props.item.imageUrl }}
                                 style={{ width: 100, height: 100, margin: 5 }}
@@ -174,14 +174,17 @@ class ListProductWithCategory extends Component {
     render() {
         return (
             <View style={{ marginBottom: -2 }}>
-                
+
                 <FlatList
                     ref={"flatList"}
                     data={this.state.productsFromServer}
                     renderItem={({ item, index }) => {
                         return (
-                            <FlatListItem item={item} index={index} parentFlatList={this}
-                                onPress={this.props.addItemToCart}
+                            <FlatListItemCategory item={item} index={index} parentFlatList={this}
+                                onPress={() => this.props.navigation.navigate('ProductDetail', {
+                                    productName: item.name
+                                })
+                                }
                                 categoryName={this.props.navigation.getParam('categoryName')}
                             />
                         );

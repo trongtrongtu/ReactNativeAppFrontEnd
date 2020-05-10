@@ -17,7 +17,6 @@ async function getProductsFromServer() {
     }
 }
 async function getProductsWithCategoryFromServer(params) {
-    console.log(params)
     try {
         const category_name = encodeURIComponent(params);
         let response = await fetch(`http://192.168.1.138:3001/list_products_with_category?category_name=${category_name}`);

@@ -79,9 +79,7 @@ class FlatListItem extends Component {
                         flexDirection: 'row',
                         backgroundColor: 'mediumseagreen'
                     }}>
-                        <TouchableOpacity activeOpacity={0.5} onPress={() => {
-                            Alert.alert('click!');
-                        }}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
                             <Image
                                 source={{ uri: this.props.item.imageUrl }}
                                 style={{ width: 100, height: 100, margin: 5 }}
@@ -196,7 +194,10 @@ class BasicFlatList extends Component {
                     renderItem={({ item, index }) => {
                         return (
                             <FlatListItem item={item} index={index} parentFlatList={this}
-                                onPress={() => this.props.navigation.navigate('ProductDetail')}
+                                onPress={() => this.props.navigation.navigate('ProductDetail', {
+                                    productName: item.name
+                                })
+                                }
                             />
                         );
                     }}
@@ -215,7 +216,7 @@ class BasicFlatList extends Component {
                 <EditModal ref={'editModal'} parentFlatList={this}>
 
                 </EditModal>
-            </View>
+            </View >
         );
     }
 }
