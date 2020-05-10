@@ -5,7 +5,7 @@ import Swipeout from 'react-native-swipeout';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
 
-import { getProductsFromServer } from '../networking/Server';
+import { getProductsWithCategoryFromServer } from '../networking/Server';
 import { DeleteAProduct } from '../networking/Server';
 import { CartContexts } from '../contexts/Cart'
 
@@ -149,7 +149,7 @@ class ListProductWithCategory extends Component {
     }
     refreshDataFromServer = () => {
         this.setState({ refreshing: true });
-        getProductsFromServer().then((products) => {
+        getProductsWithCategoryFromServer(this.props.navigation.getParam('categoryName')).then((products) => {
             this.setState({ productsFromServer: products });
             this.setState({ refreshing: false });
         }).catch((error) => {
@@ -182,6 +182,7 @@ class ListProductWithCategory extends Component {
                         return (
                             <FlatListItem item={item} index={index} parentFlatList={this}
                                 onPress={this.props.addItemToCart}
+                                categoryName={this.props.navigation.getParam('categoryName')}
                             />
                         );
                     }}

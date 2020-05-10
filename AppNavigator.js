@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import ListItem from './screens/ListItem';
+import ProudctDetail from './screens/ProductDetail';
 import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
@@ -17,7 +18,8 @@ const color = {
 }
 
 const ProductStack = createStackNavigator({
-    ListItem
+    ListItem,
+    ProudctDetail
 });
 ProductStack.navigationOptions = {
     tabBarLabel: 'Home',

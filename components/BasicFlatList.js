@@ -79,7 +79,9 @@ class FlatListItem extends Component {
                         flexDirection: 'row',
                         backgroundColor: 'mediumseagreen'
                     }}>
-                        <TouchableOpacity activeOpacity={0.5}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={() => {
+                            Alert.alert('click!');
+                        }}>
                             <Image
                                 source={{ uri: this.props.item.imageUrl }}
                                 style={{ width: 100, height: 100, margin: 5 }}
@@ -194,7 +196,7 @@ class BasicFlatList extends Component {
                     renderItem={({ item, index }) => {
                         return (
                             <FlatListItem item={item} index={index} parentFlatList={this}
-                                onPress={this.props.addItemToCart}
+                                onPress={() => this.props.navigation.navigate('ProductDetail')}
                             />
                         );
                     }}

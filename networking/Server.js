@@ -16,6 +16,17 @@ async function getProductsFromServer() {
         console.error(`Error is : ${error}`);
     }
 }
+async function getProductsWithCategoryFromServer(params) {
+    console.log(params)
+    try {
+        const category_name = encodeURIComponent(params);
+        let response = await fetch(`http://192.168.1.138:3001/list_products_with_category?category_name=${category_name}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
 async function insertNewProductToServer(params) {
     try {
         let response = await fetch(apiInsertNewProduct, {
@@ -78,3 +89,4 @@ export { insertNewProductToServer };
 export { updateAProduct };
 export { DeleteAProduct };
 export {getCategoriesFromServer};
+export {getProductsWithCategoryFromServer};
