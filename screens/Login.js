@@ -6,11 +6,32 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { login } from '../networking/Server'
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      username: "",
+      password: "",
+
+    });
+  }
+  refreshDataFromServer = () => {
+    login(this.state.username, this.state.password).then((result) => {
+      if (result == "ok") {
+        Alert.alert('Thông báo', 'Đăng nhập thành công!');
+      } else {
+        Alert.alert('Thông báo', 'Tài khoản hoặc mật khẩu bị sai!');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
   render() {
     const Divider = (props) => {
       return <View {...props}>
@@ -20,7 +41,6 @@ export default class Login extends Component {
       </View>
     }
     return (
-      //Donot dismis Keyboard when click outside of TextInput
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <View style={styles.up}>
@@ -30,16 +50,15 @@ export default class Login extends Component {
               color={'rgb(221, 97, 97)'}>
             </Ionicons>
             <Text style={styles.title}>
-              Electronic Store
+              Đăng Nhập
           </Text>
           </View>
           <View style={styles.down}>
             <View style={styles.textInputContainer}>
               <TextInput
                 style={styles.textInput}
-                textContentType='emailAddress'
-                keyboardType='email-address'
-                placeholder="Enter your email"
+                placeholder="Enter your username"
+                onChangeText={(username) => this.setState({ username: username })}
               >
               </TextInput>
             </View>
@@ -48,10 +67,13 @@ export default class Login extends Component {
                 style={styles.textInput}
                 placeholder="Enter your password"
                 secureTextEntry={true}
+                onChangeText={(password) => this.setState({ password: password })}
               >
               </TextInput>
             </View>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => {
+              this.refreshDataFromServer();
+            }}>
               <Text style={styles.loginButtonTitle}>LOGIN</Text>
             </TouchableOpacity>
             <Divider style={styles.divider}></Divider>

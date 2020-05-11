@@ -6,6 +6,7 @@ const apiInsertNewProduct = 'http://192.168.1.138:3001/insert_new_product';
 const apiUpdateAProduct = 'http://192.168.1.138:3001/update_a_product';
 const apiDeleteAProduct = 'http://192.168.1.138:3001/delete_a_product';
 const apiGetAllCategories = 'http://192.168.1.138:3001/list_all_categories';
+const registerUser = 'http://192.168.1.138:3001/register';
 
 async function getProductsFromServer() {
     try {
@@ -18,10 +19,37 @@ async function getProductsFromServer() {
 }
 async function getProductsWithCategoryFromServer(params) {
     try {
-        const category_name = encodeURIComponent(params);
+        const category_name = params;
         let response = await fetch(`http://192.168.1.138:3001/list_products_with_category?category_name=${category_name}`);
         let responseJson = await response.json();
         return responseJson.data;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
+async function login(username, password) {
+    try {
+        const user_name = username;
+        const pass_word = password;
+        let response = await fetch(`http://192.168.1.138:3001/login?username=${user_name}&password=${pass_word}`);
+        let responseJson = await response.json();
+        return responseJson.result;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
+async function register(params) {
+    try {
+        let response = await fetch(registerUser, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params)
+        });
+        let responseJson = await response.json();
+        return responseJson.result;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
@@ -74,7 +102,7 @@ async function DeleteAProduct(params) {
         console.error(`Error is : ${error}`);
     }
 }
-async function getCategoriesFromServer(params){
+async function getCategoriesFromServer(params) {
     try {
         let response = await fetch(apiGetAllCategories);
         let responseJson = await response.json();
@@ -87,5 +115,6 @@ export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
 export { DeleteAProduct };
-export {getCategoriesFromServer};
-export {getProductsWithCategoryFromServer};
+export { getCategoriesFromServer };
+export { getProductsWithCategoryFromServer };
+export { login };

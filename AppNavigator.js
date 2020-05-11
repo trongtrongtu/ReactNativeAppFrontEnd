@@ -8,7 +8,7 @@ import ProudctDetail from './screens/ProductDetail';
 import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
-import Settings from './screens/Settings';
+import Settings from './screens/Register';
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
 
