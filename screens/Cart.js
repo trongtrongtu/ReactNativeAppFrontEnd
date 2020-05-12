@@ -5,7 +5,7 @@ import { CartContexts } from '../contexts/Cart'
 
 export default function Cart(props) {
 
-    const { cartItems, cartItemsIsLoading, selectAll } = props;
+    const { cartItems, selectAll } = props;
 
     const styles = StyleSheet.create({
         centerElement: { justifyContent: 'center', alignItems: 'center' },
@@ -13,11 +13,6 @@ export default function Cart(props) {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#f6f6f6' }}>
-            {cartItemsIsLoading ? (
-                <View style={[styles.centerElement, { height: 300 }]}>
-                    <ActivityIndicator size="large" color="#ef5739" />
-                </View>
-            ) : (
                     <ScrollView>
                         {cartItems && cartItems.map((item, i) => (
                             <View key={i} style={{ flexDirection: 'row', backgroundColor: '#fff', marginBottom: 2, height: 120 }}>
@@ -70,9 +65,6 @@ export default function Cart(props) {
                             </View>
                         ))}
                     </ScrollView>
-                )}
-
-            {!cartItemsIsLoading &&
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 2, borderColor: '#f6f6f6', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={[styles.centerElement, { width: 60 }]}>
@@ -98,7 +90,6 @@ export default function Cart(props) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            }
         </View>
     );
 }

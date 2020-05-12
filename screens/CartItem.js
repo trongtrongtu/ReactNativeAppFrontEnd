@@ -5,8 +5,8 @@ import { CartContexts } from '../contexts/Cart'
 export default function CategoryListItem() {
     return (
         <CartContexts.Consumer>
-            {({ cartItems, selectAll, cartItemsIsLoading }) => (
-                <Cart cartItems={cartItems} selectAll={selectAll} cartItemsIsLoading={cartItemsIsLoading} />
+            {({ cartItems, selectAll }) => (
+                <Cart cartItems={cartItems} selectAll={selectAll} />
             )}
         </CartContexts.Consumer>
     );

@@ -7,7 +7,6 @@ export default class CartProvider extends Component {
         super(props);
         this.state = {
             selectAll: false,
-            cartItemsIsLoading: false,
             cartItems: []
         };
         this.addToCart = this.addToCart.bind(this);
