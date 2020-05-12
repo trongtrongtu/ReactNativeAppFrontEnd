@@ -35,6 +35,7 @@ export default class CartProvider extends Component {
                 cartItems: this.state.cartItems.concat(item)
             });
         }
+        Alert.alert('Thông báo', `Đã thêm ${item.name} vào giỏ hàng!`);
     }
     quantityHandler = (action, index) => {
         const newItems = [...this.state.cartItems];
