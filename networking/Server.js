@@ -38,18 +38,30 @@ async function login(username, password) {
         console.error(`Error is : ${error}`);
     }
 }
-async function register(params) {
+async function register(username, password, gioi_tinh, ngay_sinh, email, sdt, dia_chi) {
     try {
-        let response = await fetch(registerUser, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(params)
-        });
-        let responseJson = await response.json();
-        return responseJson.result;
+        if (!username || !password || !gioi_tinh || !ngay_sinh || !email || !sdt || !dia_chi) {
+            return 'empty';
+        } else {
+            let response = await fetch(registerUser, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                    gioi_tinh: gioi_tinh,
+                    ngay_sinh: ngay_sinh,
+                    email: email,
+                    sdt: sdt,
+                    dia_chi: dia_chi
+                })
+            });
+            let responseJson = await response.json();
+            return responseJson.result;
+        }
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
@@ -118,3 +130,4 @@ export { DeleteAProduct };
 export { getCategoriesFromServer };
 export { getProductsWithCategoryFromServer };
 export { login };
+export { register }

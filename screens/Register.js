@@ -13,34 +13,38 @@ import {
 import RadioForm from 'react-native-simple-radio-button';
 import DatePicker from 'react-native-datepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { login } from '../networking/Server';
+import { register } from '../networking/Server';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            username: "",
-            password: "",
-            gioi_tinh: "",
-            ngay_sinh: "2020-01-01"
-
+                username: "",
+                password: "",
+                gioi_tinh: "",
+                ngay_sinh: "2020-01-01",
+                email: "",
+                sdt: "",
+                dia_chi: ""
         });
     }
     refreshDataFromServer = () => {
-        login(this.state.username, this.state.password).then((result) => {
+        register(this.state.username,this.state.password,this.state.gioi_tinh,this.state.ngay_sinh,this.state.email,this.state.sdt,this.state.dia_chi).then((result) => {
             if (result == "ok") {
-                Alert.alert('Thông báo', 'Đăng nhập thành công!');
+                Alert.alert('Thông báo', 'Đăng ký thành công!');
+            } else if (result == "empty"){
+                Alert.alert('Thông báo', 'Cần nhập đầy đủ thông tin!');
             } else {
-                Alert.alert('Thông báo', 'Tài khoản hoặc mật khẩu bị sai!');
+                Alert.alert('Thông báo', 'Tài khoản đã tồn tại!');
             }
         }).catch((error) => {
             console.error(error);
         });
     }
     render() {
-        let radio_props = [
-            { label: 'Nam', value: 0 },
-            { label: 'Nữ', value: 1 },
+        var radio_props = [
+            { label: 'Nam', value: 'Nam' },
+            { label: 'Nữ', value: 'Nữ' },
         ];
         return (
             <ScrollView>
@@ -80,6 +84,7 @@ export default class Login extends Component {
                                     style={styles.textInput}
                                     keyboardType='email-address'
                                     placeholder="Enter your email"
+                                    onChangeText={(email) => this.setState({ email: email })}
                                 >
                                 </TextInput>
                             </View>
@@ -88,6 +93,7 @@ export default class Login extends Component {
                                     style={styles.textInput}
                                     keyboardType='number-pad'
                                     placeholder="Enter your sdt"
+                                    onChangeText={(sdt) => this.setState({ sdt: sdt })}
                                 >
                                 </TextInput>
                             </View>
@@ -95,6 +101,7 @@ export default class Login extends Component {
                                 <TextInput
                                     style={styles.textInput}
                                     placeholder="Enter your địa chỉ"
+                                    onChangeText={(dia_chi) => this.setState({ dia_chi: dia_chi })}
                                 >
                                 </TextInput>
                             </View>
@@ -126,8 +133,9 @@ export default class Login extends Component {
                             <View style={styles.textInputRadio}>
                                 <RadioForm
                                     radio_props={radio_props}
+                                    initial={"empty"}
                                     buttonSize={15}
-                                    onPress={(label) => { this.setState({ gioi_tinh: label }) }}
+                                    onPress={(value) => { this.setState({ gioi_tinh: value }) }}
                                 />
                             </View>
                             <TouchableOpacity style={styles.registerButton}>
