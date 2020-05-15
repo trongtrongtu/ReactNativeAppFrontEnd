@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { login } from '../networking/Server'
+import { CartContexts } from '../contexts/Cart'
 
 export default class Login extends Component {
   constructor(props) {
@@ -71,11 +72,18 @@ export default class Login extends Component {
               >
               </TextInput>
             </View>
-            <TouchableOpacity style={styles.loginButton} onPress={() => {
-              this.refreshDataFromServer();
-            }}>
-              <Text style={styles.loginButtonTitle}>LOGIN</Text>
-            </TouchableOpacity>
+            <CartContexts.Consumer>
+              {({ userName }) => (
+                <TouchableOpacity>
+                  <TouchableOpacity style={styles.loginButton} onPress={() => {
+                    this.refreshDataFromServer();
+                    userName(this.state.username);
+                  }}>
+                    <Text style={styles.loginButtonTitle}>LOGIN</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              )}
+            </CartContexts.Consumer>
             <Divider style={styles.divider}></Divider>
             <TouchableOpacity style={styles.registerButton}>
               <Text style={styles.loginButtonTitle}>REGISTER</Text>
