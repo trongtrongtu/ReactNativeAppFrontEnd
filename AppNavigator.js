@@ -3,12 +3,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ListItem from './screens/ListItem';
-import ProudctDetail from './screens/ProductDetail';
+import BasicFlatList from './components/BasicFlatList';
+import ProductDetail from './screens/ProductDetail';
 import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
 import Settings from './screens/Login';
+import Profile from './screens/Profile';
+import Register from './screens/Register';
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
 
@@ -18,8 +20,8 @@ const color = {
 }
 
 const ProductStack = createStackNavigator({
-    ListItem,
-    ProudctDetail
+    BasicFlatList,
+    ProductDetail
 });
 ProductStack.navigationOptions = {
     tabBarLabel: 'Home',
@@ -48,7 +50,7 @@ CartStack.navigationOptions = {
 const CategoriesStack = createStackNavigator({
     Categories,
     ListProductWithCategory,
-    ProudctDetail
+    ProductDetail
 });
 CategoriesStack.navigationOptions = {
     tabBarLabel: 'Categories',
@@ -60,7 +62,9 @@ CategoriesStack.navigationOptions = {
     }
 }
 const SettingStack = createStackNavigator({
-    Settings
+    Settings,
+    Profile,
+    Register
 });
 SettingStack.navigationOptions = {
     tabBarLabel: 'Settings',

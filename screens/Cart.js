@@ -5,7 +5,7 @@ import { CartContexts } from '../contexts/Cart'
 
 export default function Cart(props) {
 
-    const { cartItems, selectAll } = props;
+    const { cartItems, selectAll} = props;
 
     const styles = StyleSheet.create({
         centerElement: { justifyContent: 'center', alignItems: 'center' },

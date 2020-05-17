@@ -2,12 +2,12 @@
 import React, { Component } from 'react';
 import { AppRegistry, SectionList, StyleSheet, Text, View, Alert, Platform } from 'react-native';
 const IpAddress = '192.168.1.138';
-const apiGetAllProducts = 'http://' + IpAddress+ ':3001/list_all_products';
-const apiInsertNewProduct = 'http://' + IpAddress+ ':3001/insert_new_product';
-const apiUpdateAProduct = 'http://' + IpAddress+ ':3001/update_a_product';
-const apiDeleteAProduct = 'http://' + IpAddress+ ':3001/delete_a_product';
-const apiGetAllCategories = 'http://' + IpAddress+ ':3001/list_all_categories';
-const registerUser = 'http://' + IpAddress+ ':3001/register';
+const apiGetAllProducts = 'http://' + IpAddress + ':3001/list_all_products';
+const apiInsertNewProduct = 'http://' + IpAddress + ':3001/insert_new_product';
+const apiUpdateAProduct = 'http://' + IpAddress + ':3001/update_a_product';
+const apiDeleteAProduct = 'http://' + IpAddress + ':3001/delete_a_product';
+const apiGetAllCategories = 'http://' + IpAddress + ':3001/list_all_categories';
+const registerUser = 'http://' + IpAddress + ':3001/register';
 
 async function getProductsFromServer() {
     try {
@@ -30,11 +30,15 @@ async function getProductsWithCategoryFromServer(params) {
 }
 async function login(username, password) {
     try {
-        const user_name = username;
-        const pass_word = password;
-        let response = await fetch(`http://${IpAddress}:3001/login?username=${user_name}&password=${pass_word}`);
-        let responseJson = await response.json();
-        return responseJson.result;
+        if (!username || !password) {
+            return 'empty';
+        } else {
+            const user_name = username;
+            const pass_word = password;
+            let response = await fetch(`http://${IpAddress}:3001/login?username=${user_name}&password=${pass_word}`);
+            let responseJson = await response.json();
+            return responseJson.result;
+        }
     } catch (error) {
         console.error(`Error is : ${error}`);
     }

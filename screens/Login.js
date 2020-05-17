@@ -18,14 +18,17 @@ export default class Login extends Component {
     super(props);
     this.state = ({
       username: "",
-      password: "",
-
+      password: ""
     });
   }
   refreshDataFromServer = () => {
     login(this.state.username, this.state.password).then((result) => {
       if (result == "ok") {
-        Alert.alert('Thông báo', 'Đăng nhập thành công!');
+        this.props.navigation.navigate('Profile', {
+          user_name: this.state.username
+        });
+      } else if (result == "empty") {
+        Alert.alert('Thông báo', 'Cần nhập đầy đủ thông tin!');
       } else {
         Alert.alert('Thông báo', 'Tài khoản hoặc mật khẩu bị sai!');
       }
@@ -78,6 +81,7 @@ export default class Login extends Component {
                   <TouchableOpacity style={styles.loginButton} onPress={() => {
                     this.refreshDataFromServer();
                     userName(this.state.username);
+
                   }}>
                     <Text style={styles.loginButtonTitle}>LOGIN</Text>
                   </TouchableOpacity>
@@ -85,7 +89,9 @@ export default class Login extends Component {
               )}
             </CartContexts.Consumer>
             <Divider style={styles.divider}></Divider>
-            <TouchableOpacity style={styles.registerButton}>
+            <TouchableOpacity style={styles.registerButton} onPress={() => {
+              this.props.navigation.navigate('Register');
+            }}>
               <Text style={styles.loginButtonTitle}>REGISTER</Text>
             </TouchableOpacity>
           </View>
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15
+    marginTop: 10
   },
   down: {
     flex: 7,//70% of column
@@ -123,12 +129,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 400,
     fontSize: 23,
-    marginBottom: 15
+    marginBottom: 30
   },
   textInputContainer: {
     paddingHorizontal: 10,
     borderRadius: 6,
-    marginBottom: 20,
+    marginBottom: 15,
     backgroundColor: 'rgba(255,255,255,0.2)'//a = alpha = opacity
   },
   textInput: {
@@ -136,6 +142,7 @@ const styles = StyleSheet.create({
     height: 45
   },
   loginButton: {
+    marginTop: 20,
     width: 300,
     height: 45,
     borderRadius: 6,
