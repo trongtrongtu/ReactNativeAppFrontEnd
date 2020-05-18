@@ -80,8 +80,10 @@ export default class Login extends Component {
                 <TouchableOpacity>
                   <TouchableOpacity style={styles.loginButton} onPress={() => {
                     this.refreshDataFromServer();
-                    userName(this.state.username);
-
+                    login(this.state.username, this.state.password).then((result) => {
+                      if (result == "ok") {
+                        userName(this.state.username);
+                      }});
                   }}>
                     <Text style={styles.loginButtonTitle}>LOGIN</Text>
                   </TouchableOpacity>

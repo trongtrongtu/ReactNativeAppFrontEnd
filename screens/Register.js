@@ -14,25 +14,29 @@ import RadioForm from 'react-native-simple-radio-button';
 import DatePicker from 'react-native-datepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { register } from '../networking/Server';
+import { login } from '../networking/Server'
+import { CartContexts } from '../contexts/Cart'
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-                username: "",
-                password: "",
-                gioi_tinh: "",
-                ngay_sinh: "2020-01-01",
-                email: "",
-                sdt: "",
-                dia_chi: ""
+            username: "",
+            password: "",
+            gioi_tinh: "",
+            ngay_sinh: "2020-01-01",
+            email: "",
+            sdt: "",
+            dia_chi: ""
         });
     }
     refreshDataFromServer = () => {
-        register(this.state.username,this.state.password,this.state.gioi_tinh,this.state.ngay_sinh,this.state.email,this.state.sdt,this.state.dia_chi).then((result) => {
+        register(this.state.username, this.state.password, this.state.gioi_tinh, this.state.ngay_sinh, this.state.email, this.state.sdt, this.state.dia_chi).then((result) => {
             if (result == "ok") {
-                Alert.alert('Thông báo', 'Đăng ký thành công!');
-            } else if (result == "empty"){
+                this.props.navigation.navigate('Profile', {
+                    user_name: this.state.username
+                });
+            } else if (result == "empty") {
                 Alert.alert('Thông báo', 'Cần nhập đầy đủ thông tin!');
             } else {
                 Alert.alert('Thông báo', 'Tài khoản đã tồn tại!');
@@ -138,11 +142,20 @@ export default class Login extends Component {
                                     onPress={(value) => { this.setState({ gioi_tinh: value }) }}
                                 />
                             </View>
-                            <TouchableOpacity style={styles.registerButton}>
-                                <Text style={styles.loginButtonTitle} onPress={() => {
-                                    this.refreshDataFromServer();
-                                }}>REGISTER</Text>
-                            </TouchableOpacity>
+                            <CartContexts.Consumer>
+                                {({ userName }) => (
+                                    <TouchableOpacity style={styles.registerButton}>
+                                        <Text style={styles.loginButtonTitle} onPress={() => {
+                                            this.refreshDataFromServer();
+                                            login(this.state.username, this.state.password).then((result) => {
+                                                if (result == "ok") {
+                                                    userName(this.state.username);
+                                                }
+                                            });
+                                        }}>REGISTER</Text>
+                                    </TouchableOpacity>
+                                )}
+                            </CartContexts.Consumer>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
