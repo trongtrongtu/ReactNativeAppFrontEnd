@@ -5,46 +5,61 @@ import {
     View,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    TextInput
 } from 'react-native';
-import { CartContexts } from '../contexts/Cart';
+import { myAccount } from '../networking/Server'
 
 export default class Profile extends Component {
     static navigationOptions = {
         title: 'My Account'
     };
+    constructor(props) {
+        super(props);
+        this.state = ({
+            user: []
+        });
+    }
+    componentDidMount() {
+        this.refreshDataFromServer();
+    }
+    refreshDataFromServer = () => {
+        myAccount(this.props.username).then((userFromServer) => {
+            this.setState({
+                user: userFromServer[0]
+            });
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
     render() {
-        
+
         return (
-            <CartContexts.Consumer>
-                {({ username }) => (
-                    <ScrollView>
-                        <View style={styles.container}>
-                            <View style={styles.header}></View>
-                            <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                            <View style={styles.body}>
-                                <View style={styles.bodyContent}>
-                                    <Text style={styles.name}>{username}</Text>
-                                    <Text style={styles.info}>UX Designer / Mobile developer</Text>
-                                    <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
-                                    <TouchableOpacity style={styles.buttonContainer}>
-                                        <Text>Opcion 1</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.buttonContainer}>
-                                        <Text>Opcion 2</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.buttonContainer}>
-                                        <Text>Opcion 2</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.buttonContainer}>
-                                        <Text>Opcion 2</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+            <ScrollView>
+                <View style={styles.header}></View>
+                <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
+                <View style={styles.container}>
+                    <View style={styles.down}>
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                value={this.state.user.username}
+                                onChangeText={(username) => this.setState({ username: username })}
+                            >
+                            </TextInput>
                         </View>
-                    </ScrollView>
-                )}
-            </CartContexts.Consumer>
+                        <TouchableOpacity style={styles.buttonContainer}>
+                            <Text>Opcion 2</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttonContainer}>
+                            <Text>Opcion 2</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttonContainer}>
+                            <Text>Opcion 2</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -104,5 +119,28 @@ const styles = StyleSheet.create({
         width: 250,
         borderRadius: 30,
         backgroundColor: "#00BFFF",
+    },
+    textInput: {
+        width: 280,
+        height: 45
+    },
+    textInputContainer: {
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        marginBottom: 15,
+        backgroundColor: 'rgba(255,255,255,0.2)'//a = alpha = opacity
+    },
+    down: {
+        flex: 7,//70% of column
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        backgroundColor: 'rgb(234, 195, 176)'
     },
 });

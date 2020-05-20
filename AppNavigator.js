@@ -9,7 +9,7 @@ import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
 import Settings from './screens/Login';
-import Profile from './screens/Profile';
+import ProfileConsumer from './screens/ProfileConsumer';
 import Register from './screens/Register';
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
@@ -63,7 +63,7 @@ CategoriesStack.navigationOptions = {
 }
 const SettingStack = createStackNavigator({
     Settings,
-    Profile,
+    ProfileConsumer,
     Register
 });
 SettingStack.navigationOptions = {

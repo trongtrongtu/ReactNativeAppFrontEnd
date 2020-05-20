@@ -24,7 +24,7 @@ export default class Login extends Component {
   refreshDataFromServer = () => {
     login(this.state.username, this.state.password).then((result) => {
       if (result == "ok") {
-        this.props.navigation.navigate('Profile', {
+        this.props.navigation.navigate('ProfileConsumer', {
           user_name: this.state.username
         });
       } else if (result == "empty") {

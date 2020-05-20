@@ -71,6 +71,24 @@ async function register(username, password, gioi_tinh, ngay_sinh, email, sdt, di
         console.error(`Error is : ${error}`);
     }
 }
+async function myAccount(user_name) {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/my_account?username=${user_name}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
+async function productDetail(product_name) {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/list_product_with_productname=${product_name}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
 async function insertNewProductToServer(params) {
     try {
         let response = await fetch(apiInsertNewProduct, {
@@ -135,4 +153,6 @@ export { DeleteAProduct };
 export { getCategoriesFromServer };
 export { getProductsWithCategoryFromServer };
 export { login };
-export { register }
+export { register };
+export { myAccount };
+export { productDetail };
