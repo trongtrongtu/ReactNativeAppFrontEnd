@@ -8,16 +8,20 @@ import {
     ScrollView,
     TextInput
 } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import RadioForm from 'react-native-simple-radio-button';
 import { myAccount } from '../networking/Server'
 
 export default class Profile extends Component {
-    static navigationOptions = {
-        title: 'My Account'
-    };
     constructor(props) {
         super(props);
         this.state = ({
-            user: []
+            username: "",
+            gioi_tinh: "",
+            ngay_sinh: "",
+            email: "",
+            sdt: "",
+            dia_chi: ""
         });
     }
     componentDidMount() {
@@ -26,37 +30,95 @@ export default class Profile extends Component {
     refreshDataFromServer = () => {
         myAccount(this.props.username).then((userFromServer) => {
             this.setState({
-                user: userFromServer[0]
+                username: userFromServer[0].username,
+                gioi_tinh: userFromServer[0].gioi_tinh,
+                ngay_sinh: userFromServer[0].ngay_sinh,
+                email: userFromServer[0].email,
+                sdt: userFromServer[0].sdt,
+                dia_chi: userFromServer[0].dia_chi
             });
         }).catch((error) => {
             console.error(error);
         });
     }
     render() {
-
+        var radio_props = [
+            { label: 'Nam', value: 'Nam' },
+            { label: 'Nữ', value: 'Nữ' },
+        ];
         return (
             <ScrollView>
                 <View style={styles.header}></View>
                 <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
                 <View style={styles.container}>
                     <View style={styles.down}>
-                        <View style={styles.textInputContainer}>
+                        <View style={styles.textInputContainerTop}>
                             <TextInput
                                 style={styles.textInput}
-                                value={this.state.user.username}
+                                value={this.state.username}
                                 onChangeText={(username) => this.setState({ username: username })}
                             >
                             </TextInput>
                         </View>
-                        <TouchableOpacity style={styles.buttonContainer}>
-                            <Text>Opcion 2</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonContainer}>
-                            <Text>Opcion 2</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonContainer}>
-                            <Text>Opcion 2</Text>
-                        </TouchableOpacity>
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                keyboardType='email-address'
+                                value={this.state.email}
+                                onChangeText={(email) => this.setState({ email: email })}
+                            >
+                            </TextInput>
+                        </View>
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                keyboardType='number-pad'
+                                value={this.state.sdt}
+                                onChangeText={(sdt) => this.setState({ sdt: sdt })}
+                            >
+                            </TextInput>
+                        </View>
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                value={this.state.dia_chi}
+                                onChangeText={(dia_chi) => this.setState({ dia_chi: dia_chi })}
+                            >
+                            </TextInput>
+                        </View>
+                        <View style={styles.textInputRadio}>
+                            <DatePicker
+                                style={{ width: 200 }}
+                                date={this.state.ngay_sinh}
+                                mode="date"
+                                placeholder="select date"
+                                format="YYYY-MM-DD"
+                                minDate="1900-01-01"
+                                maxDate="2020-06-01"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        marginLeft: 36
+                                    }
+                                }}
+                                onDateChange={(date) => { this.setState({ ngay_sinh: date }) }}
+                            />
+                        </View>
+                        <View style={styles.textInputRadio}>
+                            <RadioForm
+                                radio_props={radio_props}
+                                initial={this.state.gioi_tinh.length}
+                                buttonSize={15}
+                                onPress={(value) => { this.setState({ gioi_tinh: value }) }}
+                            />
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -121,14 +183,21 @@ const styles = StyleSheet.create({
         backgroundColor: "#00BFFF",
     },
     textInput: {
-        width: 280,
-        height: 45
+        width: 180,
+        height: 45,
+    },
+    textInputContainerTop: {
+        marginTop: 100,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        marginBottom: 15,
+        backgroundColor: 'rgb(221, 97, 97)'
     },
     textInputContainer: {
         paddingHorizontal: 10,
         borderRadius: 6,
         marginBottom: 15,
-        backgroundColor: 'rgba(255,255,255,0.2)'//a = alpha = opacity
+        backgroundColor: 'rgb(221, 97, 97)'
     },
     down: {
         flex: 7,//70% of column
@@ -140,7 +209,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'stretch',
-        backgroundColor: 'rgb(234, 195, 176)'
+        alignItems: 'stretch'
     },
+    textInputRadio: {
+        marginBottom: 20,
+    }
 });

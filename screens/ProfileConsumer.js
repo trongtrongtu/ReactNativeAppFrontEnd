@@ -10,7 +10,7 @@ export default class ProfileConsumer extends React.Component {
     render() {
         return <CartContexts.Consumer>
             {({ username }) => (
-                <Profile username={username} />
+                <Profile username={this.props.navigation.getParam('user_name')} />
             )}
         </CartContexts.Consumer>
     }
