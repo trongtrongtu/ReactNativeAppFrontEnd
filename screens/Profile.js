@@ -42,85 +42,102 @@ export default class Profile extends Component {
         });
     }
     render() {
-        var radio_props = [
-            { label: 'Nam', value: 'Nam' },
-            { label: 'Nữ', value: 'Nữ' },
-        ];
         return (
             <ScrollView>
                 <View style={styles.header}></View>
                 <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
                 <View style={styles.container}>
                     <View style={styles.down}>
-                        <View style={styles.textInputContainerTop}>
-                            <TextInput
-                                style={styles.textInput}
-                                value={this.state.username}
-                                onChangeText={(username) => this.setState({ username: username })}
-                            >
-                            </TextInput>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 114 }}><Text>Tên đăng nhập: </Text></View>
+                            <View style={styles.textInputContainerTop}>
+                                <TextInput
+                                    style={styles.textInput}
+                                    value={this.state.username}
+                                    onChangeText={(username) => this.setState({ username: username })}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                keyboardType='email-address'
-                                value={this.state.email}
-                                onChangeText={(email) => this.setState({ email: email })}
-                            >
-                            </TextInput>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 14 }}><Text>Giới tính:            </Text></View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    style={styles.textInput}
+                                    value={this.state.gioi_tinh}
+                                    onChangeText={(gioi_tinh) => this.setState({ gioi_tinh: gioi_tinh })}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                keyboardType='number-pad'
-                                value={this.state.sdt}
-                                onChangeText={(sdt) => this.setState({ sdt: sdt })}
-                            >
-                            </TextInput>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 14 }}><Text>Email:                 </Text></View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    style={styles.textInput}
+                                    keyboardType='email-address'
+                                    value={this.state.email}
+                                    onChangeText={(email) => this.setState({ email: email })}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                style={styles.textInput}
-                                value={this.state.dia_chi}
-                                onChangeText={(dia_chi) => this.setState({ dia_chi: dia_chi })}
-                            >
-                            </TextInput>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 14 }}><Text>Số điện thoại:    </Text></View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    style={styles.textInput}
+                                    keyboardType='number-pad'
+                                    value={this.state.sdt}
+                                    onChangeText={(sdt) => this.setState({ sdt: sdt })}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
-                        <View style={styles.textInputRadio}>
-                            <DatePicker
-                                style={{ width: 200 }}
-                                date={this.state.ngay_sinh}
-                                mode="date"
-                                placeholder="select date"
-                                format="YYYY-MM-DD"
-                                minDate="1900-01-01"
-                                maxDate="2020-06-01"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    dateIcon: {
-                                        position: 'absolute',
-                                        left: 0,
-                                        top: 4,
-                                        marginLeft: 0
-                                    },
-                                    dateInput: {
-                                        marginLeft: 36
-                                    }
-                                }}
-                                onDateChange={(date) => { this.setState({ ngay_sinh: date }) }}
-                            />
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 14 }}><Text>Địa chỉ:              </Text></View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    style={styles.textInput}
+                                    value={this.state.dia_chi}
+                                    onChangeText={(dia_chi) => this.setState({ dia_chi: dia_chi })}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
-                        <View style={styles.textInputRadio}>
-                            <RadioForm
-                                radio_props={radio_props}
-                                initial={this.state.gioi_tinh.length}
-                                buttonSize={15}
-                                onPress={(value) => { this.setState({ gioi_tinh: value }) }}
-                            />
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginTop: 14 }}><Text>Ngày sinh:        </Text></View>
+                            <View style={styles.textInputRadio}>
+                                <DatePicker
+                                    style={{ width: 200 }}
+                                    date={this.state.ngay_sinh}
+                                    mode="date"
+                                    placeholder="select date"
+                                    format="YYYY-MM-DD"
+                                    minDate="1900-01-01"
+                                    maxDate="2020-06-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        dateIcon: {
+                                            position: 'absolute',
+                                            left: 0,
+                                            top: 4,
+                                            marginLeft: 0
+                                        },
+                                        dateInput: {
+                                            marginLeft: 36
+                                        }
+                                    }}
+                                    onDateChange={(date) => { this.setState({ ngay_sinh: date }) }}
+                                />
+                            </View>
                         </View>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.saveButton}>
+                    <Text style={styles.saveButtonTitle}>SAVE</Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }
@@ -213,5 +230,20 @@ const styles = StyleSheet.create({
     },
     textInputRadio: {
         marginBottom: 20,
+    },
+    saveButton: {
+        marginTop: 20,
+        marginLeft: 10,
+        marginBottom: 20,
+        width: 300,
+        height: 45,
+        borderRadius: 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(221, 97, 97)'
+    },
+    saveButtonTitle: {
+        fontSize: 18,
+        color: 'white'
     }
 });

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, SectionList, StyleSheet, Text, View, Alert, Platform } from 'react-native';
-const IpAddress = '192.168.1.138';
+const IpAddress = '192.168.1.4';
 const apiGetAllProducts = 'http://' + IpAddress + ':3001/list_all_products';
 const apiInsertNewProduct = 'http://' + IpAddress + ':3001/insert_new_product';
 const apiUpdateAProduct = 'http://' + IpAddress + ':3001/update_a_product';
