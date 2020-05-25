@@ -8,6 +8,7 @@ const apiUpdateAProduct = 'http://' + IpAddress + ':3001/update_a_product';
 const apiDeleteAProduct = 'http://' + IpAddress + ':3001/delete_a_product';
 const apiGetAllCategories = 'http://' + IpAddress + ':3001/list_all_categories';
 const registerUser = 'http://' + IpAddress + ':3001/register';
+const apiUpdateUser = 'http://' + IpAddress + ':3001/update_user';
 
 async function getProductsFromServer() {
     try {
@@ -77,6 +78,33 @@ async function myAccount(user_name) {
         let responseJson = await response.json();
         return responseJson.data;
     } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
+async function update_user(username, gioi_tinh, ngay_sinh, email, sdt, dia_chi) {
+    try {
+        if (!gioi_tinh || !ngay_sinh || !email || !sdt || !dia_chi) {
+            return 'empty';
+        } else {
+            let response = await fetch(apiUpdateUser, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    gioi_tinh: gioi_tinh,
+                    ngay_sinh: ngay_sinh,
+                    email: email,
+                    sdt: sdt,
+                    dia_chi: dia_chi
+                })
+            });
+            let responseJson = await response.json();
+            return responseJson.result;
+        }
+    } catch (error) {
         console.error(`Error is : ${error}`);
     }
 }
@@ -156,3 +184,4 @@ export { login };
 export { register };
 export { myAccount };
 export { productDetail };
+export { update_user }

@@ -51,12 +51,9 @@ export default class Profile extends Component {
                         <View style={{ flexDirection: "row" }}>
                             <View style={{ marginTop: 114 }}><Text>Tên đăng nhập: </Text></View>
                             <View style={styles.textInputContainerTop}>
-                                <TextInput
-                                    style={styles.textInput}
-                                    value={this.state.username}
-                                    onChangeText={(username) => this.setState({ username: username })}
-                                >
-                                </TextInput>
+                                <TouchableOpacity activeOpacity={1} style={styles.textInput}>
+                                    <Text>{this.state.username}</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ flexDirection: "row" }}>
@@ -133,11 +130,11 @@ export default class Profile extends Component {
                                 />
                             </View>
                         </View>
+                        <TouchableOpacity style={styles.saveButton}>
+                            <Text style={styles.saveButtonTitle}>SAVE</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.saveButton}>
-                    <Text style={styles.saveButtonTitle}>SAVE</Text>
-                </TouchableOpacity>
             </ScrollView>
         );
     }
@@ -202,6 +199,7 @@ const styles = StyleSheet.create({
     textInput: {
         width: 180,
         height: 45,
+        justifyContent: 'center',
     },
     textInputContainerTop: {
         marginTop: 100,
@@ -220,7 +218,7 @@ const styles = StyleSheet.create({
         flex: 7,//70% of column
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     container: {
         flex: 1,
@@ -233,7 +231,6 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         marginTop: 20,
-        marginLeft: 10,
         marginBottom: 20,
         width: 300,
         height: 45,
