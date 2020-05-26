@@ -9,8 +9,8 @@ import {
     TextInput
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import RadioForm from 'react-native-simple-radio-button';
-import { myAccount } from '../networking/Server'
+import { myAccount } from '../networking/Server';
+import { update_user } from '../networking/Server';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -37,6 +37,17 @@ export default class Profile extends Component {
                 sdt: userFromServer[0].sdt,
                 dia_chi: userFromServer[0].dia_chi
             });
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+    refreshDataFromServer = () => {
+        update_user(this.state.username, this.state.gioi_tinh, this.state.ngay_sinh, this.state.email, this.state.sdt, this.state.dia_chi).then((result) => {
+            if (result == "ok") {
+                Alert.alert('Thông báo', 'Cập nhập thông tin thành công!');
+            } else if (result == "empty") {
+                Alert.alert('Thông báo', 'Cần nhập đầy đủ thông tin!');
+            }
         }).catch((error) => {
             console.error(error);
         });
@@ -130,7 +141,9 @@ export default class Profile extends Component {
                                 />
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.saveButton}>
+                        <TouchableOpacity style={styles.saveButton} onPress={() => {
+                            this.refreshDataFromServer();
+                        }}>
                             <Text style={styles.saveButtonTitle}>SAVE</Text>
                         </TouchableOpacity>
                     </View>
