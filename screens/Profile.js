@@ -6,7 +6,8 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import { myAccount } from '../networking/Server';
@@ -41,7 +42,7 @@ export default class Profile extends Component {
             console.error(error);
         });
     }
-    refreshDataFromServer = () => {
+    refreshData = () => {
         update_user(this.state.username, this.state.gioi_tinh, this.state.ngay_sinh, this.state.email, this.state.sdt, this.state.dia_chi).then((result) => {
             if (result == "ok") {
                 Alert.alert('Thông báo', 'Cập nhập thông tin thành công!');
@@ -142,7 +143,7 @@ export default class Profile extends Component {
                             </View>
                         </View>
                         <TouchableOpacity style={styles.saveButton} onPress={() => {
-                            this.refreshDataFromServer();
+                            this.refreshData();
                         }}>
                             <Text style={styles.saveButtonTitle}>SAVE</Text>
                         </TouchableOpacity>

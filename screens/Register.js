@@ -62,7 +62,7 @@ export default class Login extends Component {
                             </Ionicons>
                             <Text style={styles.title}>
                                 Đăng Ký
-          </Text>
+                            </Text>
                         </View>
                         <View style={styles.down}>
                             <View style={styles.textInputContainer}>

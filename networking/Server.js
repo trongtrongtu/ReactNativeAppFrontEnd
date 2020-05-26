@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, SectionList, StyleSheet, Text, View, Alert, Platform } from 'react-native';
-const IpAddress = '192.168.1.4';
+const IpAddress = '192.168.1.3';
 const apiGetAllProducts = 'http://' + IpAddress + ':3001/list_all_products';
 const apiInsertNewProduct = 'http://' + IpAddress + ':3001/insert_new_product';
 const apiUpdateAProduct = 'http://' + IpAddress + ':3001/update_a_product';
@@ -9,6 +9,7 @@ const apiDeleteAProduct = 'http://' + IpAddress + ':3001/delete_a_product';
 const apiGetAllCategories = 'http://' + IpAddress + ':3001/list_all_categories';
 const registerUser = 'http://' + IpAddress + ':3001/register';
 const apiUpdateUser = 'http://' + IpAddress + ':3001/update_user';
+const apiCheckout = 'http://' + IpAddress + ':3001/checkout_product';
 
 async function getProductsFromServer() {
     try {
@@ -174,6 +175,33 @@ async function getCategoriesFromServer(params) {
         console.error(`Error is : ${error}`);
     }
 }
+async function checkout(username, name_product, username_order, sdt_order, dia_chi_order, price_product) {
+    try {
+        if (!username_order || !sdt_order || !dia_chi_order) {
+            return 'empty';
+        } else {
+            let response = await fetch(apiCheckout, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    name_product: name_product,
+                    username_order: username_order,
+                    sdt_order: sdt_order,
+                    dia_chi_order: dia_chi_order,
+                    price_product: price_product
+                })
+            });
+            let responseJson = await response.json();
+            return responseJson.result;
+        }
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
@@ -184,4 +212,5 @@ export { login };
 export { register };
 export { myAccount };
 export { productDetail };
-export { update_user }
+export { update_user };
+export { checkout };
