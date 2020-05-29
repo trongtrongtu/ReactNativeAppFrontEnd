@@ -8,7 +8,7 @@ export default class CartProvider extends Component {
         this.state = {
             selectAll: false,
             cartItems: [],
-            username:""
+            username: ""
         };
         this.addToCart = this.addToCart.bind(this);
         this.quantityHandler = this.quantityHandler.bind(this);
@@ -16,6 +16,7 @@ export default class CartProvider extends Component {
         this.selectHandler = this.selectHandler.bind(this);
         this.selectHandlerAll = this.selectHandlerAll.bind(this);
         this.userName = this.userName.bind(this);
+        this.deleteCart = this.deleteCart.bind(this);
     }
 
     addToCart(item) {
@@ -62,7 +63,7 @@ export default class CartProvider extends Component {
                     text: 'Delete', onPress: () => {
                         let updatedCart = this.state.cartItems;
                         updatedCart.splice(index, 1);
-                        this.setState(updatedCart);
+                        this.setState({ cartItems: updatedCart });
                     }
                 },
             ],
@@ -84,7 +85,12 @@ export default class CartProvider extends Component {
         this.setState({ cartItems: newItems, selectAll: (value == true ? false : true) });
     }
     userName = (user_name) => {
-        this.setState({username: user_name});
+        this.setState({ username: user_name });
+    }
+    deleteCart = (index) => {
+        let updatedCart = this.state.cartItems;
+        updatedCart.splice(index, 1);
+        this.setState({ cartItems: updatedCart });
     }
 
     render() {
@@ -97,7 +103,8 @@ export default class CartProvider extends Component {
             deleteHandler: this.deleteHandler,
             selectHandler: this.selectHandler,
             selectHandlerAll: this.selectHandlerAll,
-            userName: this.userName
+            userName: this.userName,
+            deleteCart: this.deleteCart
         }}>
             {this.props.children}
         </CartContexts.Provider>

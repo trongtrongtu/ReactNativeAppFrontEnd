@@ -86,7 +86,14 @@ export default class Cart extends Component {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', height: 32, paddingRight: 20, alignItems: 'center' }}>
-                        <TouchableOpacity style={[styles.centerElement, { backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5 }]} onPress={() => this.refs.checkoutModal.showAddModal()}>
+                        <TouchableOpacity style={[styles.centerElement, { backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5 }]}
+                            onPress={() => {
+                                if (username.length == 0) {
+                                    alert("You must login");
+                                } else {
+                                    this.refs.checkoutModal.showAddModal()
+                                }
+                            }}>
                             <Text style={{ color: '#ffffff' }}>Checkout</Text>
                         </TouchableOpacity>
                     </View>

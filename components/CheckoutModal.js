@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, Alert, Platform, Dimensions, TextInput } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
-import { checkout } from '../networking/Server'
+import { checkout } from '../networking/Server';
+import { CartContexts } from '../contexts/Cart'
 
 var screen = Dimensions.get('window');
 export default class CheckoutModal extends Component {
@@ -98,30 +99,56 @@ export default class CheckoutModal extends Component {
                         }}>
                         Cancel
                 </Button>
-                    <Button
-                        style={{ fontSize: 18, color: 'white' }}
-                        containerStyle={{
-                            padding: 8,
-                            paddingHorizontal: 12,
-                            marginLeft: 15,
-                            height: 40,
-                            borderRadius: 6,
-                            backgroundColor: 'mediumseagreen'
-                        }}
-                        onPress={() => {
-                            if (this.state.username.length == 0 || this.state.number.length == 0 || this.state.address.length == 0) {
-                                alert("You must enter username, number and address");
-                                return;
-                            }
-                            checkout(this.props.username, this.props.name, this.state.username,  this.state.number, this.state.address, this.props.productDescription, this.props.quantity).then(result => {
-                                if (result == 'ok') {
-                                    this.props.parentFlatlist.refreshDataFromServer();
-                                }
-                            })
-                            this.refs.myModal.close();
-                        }}>
-                        Order
-                </Button>
+                    <CartContexts.Consumer>
+                        {({ deleteCart }) => (
+                            <Button
+                                style={{ fontSize: 18, color: 'white' }}
+                                containerStyle={{
+                                    padding: 8,
+                                    paddingHorizontal: 12,
+                                    marginLeft: 15,
+                                    height: 40,
+                                    borderRadius: 6,
+                                    backgroundColor: 'mediumseagreen'
+                                }}
+                                onPress={() => {
+                                    if (this.props.cartItems.length == 0) {
+                                        alert("Cart empty");
+                                    } else {
+                                        if (this.state.username.length == 0 || this.state.number.length == 0 || this.state.address.length == 0) {
+                                            alert("You must enter username, number and address");
+                                            return;
+                                        } else {
+                                            let count = 0;
+                                            for (let i = 0; i < this.props.cartItems.length; i++) {
+                                                if (this.props.cartItems[i].checked == 1) {
+                                                    count = 1;
+                                                    checkout(this.props.username, this.props.cartItems[i].name, this.state.username, this.state.number, this.state.address, this.props.cartItems[i].productDescription, this.props.cartItems[i].quantity).then(result => {
+                                                        if (result == 'ok') {
+                                                            deleteCart(i);
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                            if (count == 0) {
+                                                alert("Cart empty");
+                                                this.refs.myModal.close();
+                                            } else {
+                                                alert("Order success");
+                                                this.setState({
+                                                    username: "",
+                                                    number: "",
+                                                    address: ""
+                                                })
+                                                this.refs.myModal.close();
+                                            }
+                                        }
+                                    }
+                                }}>
+                                Order
+                            </Button>
+                        )}
+                    </CartContexts.Consumer>
                 </View>
             </Modal>
         );
