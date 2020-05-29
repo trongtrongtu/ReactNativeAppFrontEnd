@@ -175,29 +175,26 @@ async function getCategoriesFromServer(params) {
         console.error(`Error is : ${error}`);
     }
 }
-async function checkout(username, name_product, username_order, sdt_order, dia_chi_order, price_product) {
+async function checkout(username, name_product, username_order, sdt_order, dia_chi_order, price_product, quantity) {
     try {
-        if (!username_order || !sdt_order || !dia_chi_order) {
-            return 'empty';
-        } else {
-            let response = await fetch(apiCheckout, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    name_product: name_product,
-                    username_order: username_order,
-                    sdt_order: sdt_order,
-                    dia_chi_order: dia_chi_order,
-                    price_product: price_product
-                })
-            });
-            let responseJson = await response.json();
-            return responseJson.result;
-        }
+        let response = await fetch(apiCheckout, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                name_product: name_product,
+                username_order: username_order,
+                sdt_order: sdt_order,
+                dia_chi_order: dia_chi_order,
+                price_product: price_product,
+                quantity: quantity
+            })
+        });
+        let responseJson = await response.json();
+        return responseJson.result;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
