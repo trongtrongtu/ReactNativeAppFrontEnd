@@ -125,11 +125,12 @@ export default class CheckoutModal extends Component {
                                                     count = 1;
                                                     checkout(this.props.username, this.props.cartItems[i].name, this.state.username, this.state.number, this.state.address, this.props.cartItems[i].productDescription, this.props.cartItems[i].quantity).then(result => {
                                                         if (result == 'ok') {
-                                                            deleteCart(i);
+
                                                         }
                                                     })
                                                 }
                                             }
+                                            deleteCart();
                                             if (count == 0) {
                                                 alert("Cart empty");
                                                 this.refs.myModal.close();

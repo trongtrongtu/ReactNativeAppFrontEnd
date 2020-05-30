@@ -87,10 +87,15 @@ export default class CartProvider extends Component {
     userName = (user_name) => {
         this.setState({ username: user_name });
     }
-    deleteCart = (index) => {
-        let updatedCart = this.state.cartItems;
-        updatedCart.splice(index, 1);
-        this.setState({ cartItems: updatedCart });
+    deleteCart = () => {
+        const newItems = [...this.state.cartItems];
+        for (let i = 0; i < newItems.length; i++) {
+            if (newItems[i].checked == 1) {
+                newItems.splice(i, 1);
+                i = i -1;
+            }
+        }
+        this.setState({ cartItems: newItems });
     }
 
     render() {

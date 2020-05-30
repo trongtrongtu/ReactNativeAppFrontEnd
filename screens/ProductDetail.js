@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     },
     addToCarContainer: {
         marginHorizontal: 30,
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     }
 });
