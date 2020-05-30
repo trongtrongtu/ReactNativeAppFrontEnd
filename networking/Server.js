@@ -111,7 +111,7 @@ async function update_user(username, gioi_tinh, ngay_sinh, email, sdt, dia_chi) 
 }
 async function productDetail(product_name) {
     try {
-        let response = await fetch(`http://${IpAddress}:3001/list_product_with_productname=${product_name}`);
+        let response = await fetch(`http://${IpAddress}:3001/list_product_with_productname?name=${product_name}`);
         let responseJson = await response.json();
         return responseJson.data;
     } catch {
