@@ -19,10 +19,6 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 4,
         backgroundColor: '#FFF',
-        shadowColor: '#000',
-        shadowOpacity: 0.4,
-        shadowRadius: 10,
-        shadowOffset: { width: 0, height: 0 },
         marginBottom: 16
     },
     categoryImage: {

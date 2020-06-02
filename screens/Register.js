@@ -33,7 +33,7 @@ export default class Login extends Component {
     refreshDataFromServer = () => {
         register(this.state.username, this.state.password, this.state.gioi_tinh, this.state.ngay_sinh, this.state.email, this.state.sdt, this.state.dia_chi).then((result) => {
             if (result == "ok") {
-                this.props.navigation.navigate('ProfileConsumer', {
+                this.props.navigation.navigate('Setting', {
                     user_name: this.state.username
                 });
             } else if (result == "empty") {

@@ -24,7 +24,7 @@ export default class Login extends Component {
   refreshDataFromServer = () => {
     login(this.state.username, this.state.password).then((result) => {
       if (result == "ok") {
-        this.props.navigation.navigate('ProfileConsumer', {
+        this.props.navigation.navigate('Setting', {
           user_name: this.state.username
         });
       } else if (result == "empty") {
@@ -37,13 +37,7 @@ export default class Login extends Component {
     });
   }
   render() {
-    const Divider = (props) => {
-      return <View {...props}>
-        <View style={styles.line}></View>
-        <Text style={styles.textOR}>OR</Text>
-        <View style={styles.line}></View>
-      </View>
-    }
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
@@ -90,12 +84,6 @@ export default class Login extends Component {
                 </TouchableOpacity>
               )}
             </CartContexts.Consumer>
-            <Divider style={styles.divider}></Divider>
-            <TouchableOpacity style={styles.registerButton} onPress={() => {
-              this.props.navigation.navigate('Register');
-            }}>
-              <Text style={styles.loginButtonTitle}>REGISTER</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -117,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 40
   },
   down: {
     flex: 7,//70% of column

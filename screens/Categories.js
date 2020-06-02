@@ -50,7 +50,7 @@ export default class Categories extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'mediumseagreen',
     alignItems: 'stretch',
     justifyContent: 'center'
   },

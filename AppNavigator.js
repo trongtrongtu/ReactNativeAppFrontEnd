@@ -8,7 +8,8 @@ import ProductDetail from './screens/ProductDetail';
 import Cart from './screens/CartItem';
 import ListProductWithCategory from './components/ListProductWithCategory';
 import Categories from './screens/Categories';
-import Settings from './screens/Login';
+import Setting from './screens/Setting';
+import Login from './screens/Login'
 import ProfileConsumer from './screens/ProfileConsumer';
 import Register from './screens/Register';
 import { View, Text } from 'react-native';
@@ -62,7 +63,8 @@ CategoriesStack.navigationOptions = {
     }
 }
 const SettingStack = createStackNavigator({
-    Settings,
+    Setting,
+    Login,
     ProfileConsumer,
     Register
 });
