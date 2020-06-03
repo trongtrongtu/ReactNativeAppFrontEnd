@@ -16,6 +16,7 @@ export default class CartProvider extends Component {
         this.selectHandler = this.selectHandler.bind(this);
         this.selectHandlerAll = this.selectHandlerAll.bind(this);
         this.userName = this.userName.bind(this);
+        this.log_out = this.log_out.bind(this)
         this.deleteCart = this.deleteCart.bind(this);
     }
 
@@ -87,12 +88,15 @@ export default class CartProvider extends Component {
     userName = (user_name) => {
         this.setState({ username: user_name });
     }
+    log_out = () => {
+        this.setState({ username: "" });
+    }
     deleteCart = () => {
         const newItems = [...this.state.cartItems];
         for (let i = 0; i < newItems.length; i++) {
             if (newItems[i].checked == 1) {
                 newItems.splice(i, 1);
-                i = i -1;
+                i = i - 1;
             }
         }
         this.setState({ cartItems: newItems });
@@ -109,6 +113,7 @@ export default class CartProvider extends Component {
             selectHandler: this.selectHandler,
             selectHandlerAll: this.selectHandlerAll,
             userName: this.userName,
+            log_out: this.log_out,
             deleteCart: this.deleteCart
         }}>
             {this.props.children}
