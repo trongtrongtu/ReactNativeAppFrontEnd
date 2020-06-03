@@ -9,6 +9,7 @@ const apiDeleteAProduct = 'http://' + IpAddress + ':3001/delete_a_product';
 const apiGetAllCategories = 'http://' + IpAddress + ':3001/list_all_categories';
 const registerUser = 'http://' + IpAddress + ':3001/register';
 const apiUpdateUser = 'http://' + IpAddress + ':3001/update_user';
+const apiUpdatePassword = 'http://' + IpAddress + ':3001/update_password';
 const apiCheckout = 'http://' + IpAddress + ':3001/checkout_product';
 
 async function getProductsFromServer() {
@@ -104,6 +105,34 @@ async function update_user(username, gioi_tinh, ngay_sinh, email, sdt, dia_chi) 
             });
             let responseJson = await response.json();
             return responseJson.result;
+        }
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
+async function update_password(username, old_password, new_password, confirm_password) {
+    try {
+        if (!old_password || !new_password || !confirm_password) {
+            return 'empty';
+        } else {
+            if (new_password != confirm_password) {
+                return 'confirm_failed';
+            } else {
+                let response = await fetch(apiUpdatePassword, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        old_password: old_password,
+                        new_password: new_password,
+                    })
+                });
+                let responseJson = await response.json();
+                return responseJson.result;
+            }
         }
     } catch (error) {
         console.error(`Error is : ${error}`);
@@ -211,3 +240,4 @@ export { myAccount };
 export { productDetail };
 export { update_user };
 export { checkout };
+export { update_password };

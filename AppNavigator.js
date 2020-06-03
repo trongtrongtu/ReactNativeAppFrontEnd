@@ -12,6 +12,7 @@ import Setting from './screens/Setting';
 import Login from './screens/Login'
 import ProfileConsumer from './screens/ProfileConsumer';
 import Register from './screens/Register';
+import UpdatePassword from './screens/UpdatePassword'
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
 
@@ -66,7 +67,8 @@ const SettingStack = createStackNavigator({
     Setting,
     Login,
     ProfileConsumer,
-    Register
+    Register,
+    UpdatePassword
 });
 SettingStack.navigationOptions = {
     tabBarLabel: 'Settings',

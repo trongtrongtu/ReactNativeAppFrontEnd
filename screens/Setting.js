@@ -56,7 +56,9 @@ export default class Setting extends Component {
                                         <Text style={styles.loginButtonTitle}>Lịch sử mua hàng</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.accountButton} onPress={() => {
-                                        this.props.navigation.navigate('Register');
+                                        this.props.navigation.navigate('UpdatePassword', {
+                                            user_name: this.props.navigation.getParam('user_name')
+                                        });
                                     }}>
                                         <Text style={styles.loginButtonTitle}>Đổi mật khẩu</Text>
                                     </TouchableOpacity>
