@@ -12,6 +12,9 @@ import {
 import { update_password } from '../networking/Server';
 
 export default class UpdatePassword extends Component {
+    static navigationOptions = {
+        title: 'Update Password'
+    };
     constructor(props) {
         super(props);
         this.state = ({
@@ -28,6 +31,8 @@ export default class UpdatePassword extends Component {
                 Alert.alert('Thông báo', 'Cần nhập đầy đủ thông tin!');
             } else if (result == "confirm_failed") {
                 Alert.alert('Thông báo', 'Mật khẩu mới không khớp!');
+            } else if (result == "failed") {
+                Alert.alert('Thông báo', 'Mật khẩu sai!');
             }
         }).catch((error) => {
             console.error(error);
@@ -41,7 +46,7 @@ export default class UpdatePassword extends Component {
                 <View style={styles.container}>
                     <View style={styles.down}>
                         <View style={{ flexDirection: "row" }}>
-                            <View style={{ marginTop: 114, marginRight: 65 }}><Text>Mật khẩu cũ:</Text></View>
+                            <View style={{ marginTop: 114, marginRight: 10 }}><Text>Mật khẩu cũ:</Text></View>
                             <View style={styles.textInputContainerTop}>
                                 <TextInput
                                     style={styles.textInput}
@@ -53,7 +58,7 @@ export default class UpdatePassword extends Component {
                             </View>
                         </View>
                         <View style={{ flexDirection: "row" }}>
-                            <View style={{ marginTop: 14, marginRight: 58 }}><Text>Mật khẩu mới:</Text></View>
+                            <View style={{ marginTop: 14, marginRight: 0 }}><Text>Mật khẩu mới: </Text></View>
                             <View style={styles.textInputContainer}>
                                 <TextInput
                                     style={styles.textInput}
@@ -65,7 +70,10 @@ export default class UpdatePassword extends Component {
                             </View>
                         </View>
                         <View style={{ flexDirection: "row" }}>
-                            <View style={{ marginTop: 14 }}><Text>Nhập lại mật khẩu mới: </Text></View>
+                            <View style={{ marginTop: 5 }}>
+                                <Text>     Nhập lại</Text>
+                                <Text>mật khẩu mới: </Text>
+                            </View>
                             <View style={styles.textInputContainer}>
                                 <TextInput
                                     style={styles.textInput}

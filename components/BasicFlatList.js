@@ -69,56 +69,53 @@ class FlatListItem extends Component {
             sectionId: 1
         };
         return (
-            <Swipeout {...swipeSettings}>
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+            }}>
                 <View style={{
                     flex: 1,
-                    flexDirection: 'column',
+                    flexDirection: 'row',
+                    backgroundColor: 'mediumseagreen'
                 }}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
+                        <Image
+                            source={{ uri: this.props.item.imageUrl }}
+                            style={{ width: 100, height: 100, margin: 5 }}
+                        >
+                        </Image>
+                    </TouchableOpacity>
                     <View style={{
                         flex: 1,
-                        flexDirection: 'row',
-                        backgroundColor: 'mediumseagreen'
+                        flexDirection: 'column',
+                        height: 100
                     }}>
-                        <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
-                            <Image
-                                source={{ uri: this.props.item.imageUrl }}
-                                style={{ width: 100, height: 100, margin: 5 }}
-                            >
-                            </Image>
-                        </TouchableOpacity>
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            height: 100
-                        }}>
-                            <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
-                            <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
-                        </View>
-                        <View>
-                            <CartContexts.Consumer>
-                                {({ addToCart }) => (
-                                    <TouchableOpacity onPress={() => addToCart(this.props.item)}>
-                                        <Text style={{
-                                            textTransform: 'uppercase',
-                                            fontSize: 16,
-                                            color: 'white',
-                                            marginTop: 85,
-                                            marginRight: 5
-                                        }}>MUA +</Text>
-                                    </TouchableOpacity>
-                                )}
-                            </CartContexts.Consumer>
-                        </View>
+                        <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
+                        <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
                     </View>
-                    <View style={{
-                        height: 1,
-                        backgroundColor: 'white'
-                    }}>
-
+                    <View>
+                        <CartContexts.Consumer>
+                            {({ addToCart }) => (
+                                <TouchableOpacity onPress={() => addToCart(this.props.item)}>
+                                    <Text style={{
+                                        textTransform: 'uppercase',
+                                        fontSize: 16,
+                                        color: 'white',
+                                        marginTop: 85,
+                                        marginRight: 5
+                                    }}>MUA +</Text>
+                                </TouchableOpacity>
+                            )}
+                        </CartContexts.Consumer>
                     </View>
                 </View>
-            </Swipeout>
+                <View style={{
+                    height: 1,
+                    backgroundColor: 'white'
+                }}>
 
+                </View>
+            </View>
         );
     }
 }
@@ -172,26 +169,36 @@ class BasicFlatList extends Component {
     }
     render() {
         return (
-            <View style={{ marginBottom: 63 }}>
-                <View style={{
-                    backgroundColor: 'tomato',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                    height: 64
-                }}>
-                    <TouchableHighlight
-                        style={{ marginRight: 10 }}
-                        underlayColor='tomato'
-                        onPress={this._onPressAdd}
-                    >
-                        <Image
-                            style={{ width: 35, height: 35 }}
-                            source={require('../icons/icons-add.png')}
-                        />
-                    </TouchableHighlight>
-                </View>
-                <FlatList
+            <View>
+                <CartContexts.Consumer>
+                    {({ role }) => (
+                        <View>
+                            {role == 'admin' ?
+                                <View style={{
+                                    backgroundColor: 'tomato',
+                                    flexDirection: 'row',
+                                    justifyContent: 'flex-end',
+                                    alignItems: 'center',
+                                    height: 64
+                                }}>
+                                    <TouchableHighlight
+                                        style={{ marginRight: 10 }}
+                                        underlayColor='tomato'
+                                        onPress={this._onPressAdd}
+                                    >
+                                        <Image
+                                            style={{ width: 35, height: 35 }}
+                                            source={require('../icons/icons-add.png')}
+                                        />
+                                    </TouchableHighlight>
+                                </View>
+                                :
+                                <View></View>
+                            }
+                        </View>
+                    )}
+                </CartContexts.Consumer>
+                <FlatList style={{ marginBottom: -2 }}
                     ref={"flatList"}
                     data={this.state.productsFromServer}
                     renderItem={({ item, index }) => {

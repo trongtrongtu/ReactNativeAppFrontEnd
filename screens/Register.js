@@ -27,7 +27,8 @@ export default class Login extends Component {
             ngay_sinh: "2020-01-01",
             email: "",
             sdt: "",
-            dia_chi: ""
+            dia_chi: "",
+            ro_le: "user"
         });
     }
     refreshDataFromServer = () => {
@@ -146,11 +147,7 @@ export default class Login extends Component {
                                     <TouchableOpacity style={styles.registerButton}>
                                         <Text style={styles.loginButtonTitle} onPress={() => {
                                             this.refreshDataFromServer();
-                                            login(this.state.username, this.state.password).then((result) => {
-                                                if (result == "ok") {
-                                                    userName(this.state.username);
-                                                }
-                                            });
+                                            userName(this.state.username, this.state.ro_le);
                                         }}>REGISTER</Text>
                                     </TouchableOpacity>
                                 )}

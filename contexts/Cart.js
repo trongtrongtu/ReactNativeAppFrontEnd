@@ -8,7 +8,8 @@ export default class CartProvider extends Component {
         this.state = {
             selectAll: false,
             cartItems: [],
-            username: ""
+            username: "",
+            role: "",
         };
         this.addToCart = this.addToCart.bind(this);
         this.quantityHandler = this.quantityHandler.bind(this);
@@ -85,8 +86,11 @@ export default class CartProvider extends Component {
         });
         this.setState({ cartItems: newItems, selectAll: (value == true ? false : true) });
     }
-    userName = (user_name) => {
-        this.setState({ username: user_name });
+    userName = (user_name, ro_le) => {
+        this.setState({ 
+            username: user_name,
+            role: ro_le
+        });
     }
     log_out = () => {
         this.setState({ username: "" });
@@ -107,6 +111,7 @@ export default class CartProvider extends Component {
             cartItems: this.state.cartItems,
             selectAll: this.state.selectAll,
             username: this.state.username,
+            role: this.state.role,
             addToCart: this.addToCart,
             quantityHandler: this.quantityHandler,
             deleteHandler: this.deleteHandler,

@@ -23,7 +23,7 @@ export default class Login extends Component {
   }
   refreshDataFromServer = () => {
     login(this.state.username, this.state.password).then((result) => {
-      if (result == "ok") {
+      if (result.length != 0) {
         this.props.navigation.navigate('Setting', {
           user_name: this.state.username
         });
@@ -75,9 +75,10 @@ export default class Login extends Component {
                   <TouchableOpacity style={styles.loginButton} onPress={() => {
                     this.refreshDataFromServer();
                     login(this.state.username, this.state.password).then((result) => {
-                      if (result == "ok") {
-                        userName(this.state.username);
-                      }});
+                      if (result.length != 0) {
+                        userName(this.state.username, result[0].ro_le);
+                      }
+                    });
                   }}>
                     <Text style={styles.loginButtonTitle}>LOGIN</Text>
                   </TouchableOpacity>
