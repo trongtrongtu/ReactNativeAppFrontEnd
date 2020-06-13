@@ -228,6 +228,15 @@ async function checkout(username, name_product, username_order, sdt_order, dia_c
         console.error(`Error is : ${error}`);
     }
 }
+async function historyOrder(user_name) {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/list_history_order?username=${user_name}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
@@ -241,3 +250,4 @@ export { productDetail };
 export { update_user };
 export { checkout };
 export { update_password };
+export { historyOrder };

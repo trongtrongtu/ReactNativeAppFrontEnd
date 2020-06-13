@@ -15,6 +15,7 @@ import Register from './screens/Register';
 import UpdatePassword from './screens/UpdatePassword'
 import { View, Text } from 'react-native';
 import CartIcon from './components/CartIcon';
+import HistoryOrder from './components/HistoryOrder';
 
 const color = {
     ACTIVE: '#147efb',
@@ -68,7 +69,8 @@ const SettingStack = createStackNavigator({
     Login,
     ProfileConsumer,
     Register,
-    UpdatePassword
+    UpdatePassword,
+    HistoryOrder
 });
 SettingStack.navigationOptions = {
     tabBarLabel: 'Settings',
