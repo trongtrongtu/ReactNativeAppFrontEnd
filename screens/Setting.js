@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback,
     Keyboard,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { login } from '../networking/Server'
@@ -29,71 +30,128 @@ export default class Setting extends Component {
         }
         return (
             <CartContexts.Consumer>
-                {({ username, log_out }) => (
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View style={styles.container}>
-                            <View style={styles.up}>
-                                <Ionicons
-                                    name="ios-speedometer"
-                                    size={100}
-                                    color={'rgb(221, 97, 97)'}>
-                                </Ionicons>
+                {({ username, log_out, role }) => (
+                    <ScrollView>
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                            <View style={styles.container}>
+                                <View style={styles.up}>
+                                    <Ionicons
+                                        name="ios-speedometer"
+                                        size={100}
+                                        color={'rgb(221, 97, 97)'}>
+                                    </Ionicons>
+                                </View>
+                                {username.length ?
+                                    <View style={styles.down}>
+                                        {role == 'admin' ?
+                                            <View>
+                                                <TouchableOpacity>
+                                                    <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                                        this.props.navigation.navigate('ProfileConsumer', {
+                                                            user_name: this.props.navigation.getParam('user_name')
+                                                        });
+                                                    }}>
+                                                        <Text style={styles.loginButtonTitle}>Tài khoản</Text>
+                                                    </TouchableOpacity>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    this.props.navigation.navigate('HistoryOrder', {
+                                                        user_name: this.props.navigation.getParam('user_name')
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Lịch sử mua hàng</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    this.props.navigation.navigate('UpdatePassword', {
+                                                        user_name: this.props.navigation.getParam('user_name')
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Đổi mật khẩu</Text>
+                                                </TouchableOpacity>
+
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    log_out();
+                                                    this.props.navigation.navigate('Setting', {
+                                                        user_name: ""
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Đăng xuất</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    log_out();
+                                                    this.props.navigation.navigate('Setting', {
+                                                        user_name: ""
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Quản lý đơn hàng</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButtonUser} onPress={() => {
+                                                    log_out();
+                                                    this.props.navigation.navigate('Setting', {
+                                                        user_name: ""
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Quản lý khách hàng</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            :
+                                            <View>
+                                                <TouchableOpacity>
+                                                    <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                                        this.props.navigation.navigate('ProfileConsumer', {
+                                                            user_name: this.props.navigation.getParam('user_name')
+                                                        });
+                                                    }}>
+                                                        <Text style={styles.loginButtonTitle}>Tài khoản</Text>
+                                                    </TouchableOpacity>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    this.props.navigation.navigate('HistoryOrder', {
+                                                        user_name: this.props.navigation.getParam('user_name')
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Lịch sử mua hàng</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    this.props.navigation.navigate('UpdatePassword', {
+                                                        user_name: this.props.navigation.getParam('user_name')
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Đổi mật khẩu</Text>
+                                                </TouchableOpacity>
+
+                                                <TouchableOpacity style={styles.accountButton} onPress={() => {
+                                                    log_out();
+                                                    this.props.navigation.navigate('Setting', {
+                                                        user_name: ""
+                                                    });
+                                                }}>
+                                                    <Text style={styles.loginButtonTitle}>Đăng xuất</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        }
+                                    </View>
+
+                                    :
+                                    <View style={styles.down}>
+                                        <TouchableOpacity>
+                                            <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                                this.props.navigation.navigate('Login');
+                                            }}>
+                                                <Text style={styles.loginButtonTitle}>LOGIN</Text>
+                                            </TouchableOpacity>
+                                        </TouchableOpacity>
+                                        <Divider style={styles.divider}></Divider>
+                                        <TouchableOpacity style={styles.registerButton} onPress={() => {
+                                            this.props.navigation.navigate('Register');
+                                        }}>
+                                            <Text style={styles.loginButtonTitle}>REGISTER</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
                             </View>
-                            {username.length ?
-                                <View style={styles.down}>
-                                    <TouchableOpacity>
-                                        <TouchableOpacity style={styles.loginButton} onPress={() => {
-                                            this.props.navigation.navigate('ProfileConsumer', {
-                                                user_name: this.props.navigation.getParam('user_name')
-                                            });
-                                        }}>
-                                            <Text style={styles.loginButtonTitle}>Tài khoản</Text>
-                                        </TouchableOpacity>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.accountButton} onPress={() => {
-                                        this.props.navigation.navigate('HistoryOrder', {
-                                            user_name: this.props.navigation.getParam('user_name')
-                                        });
-                                    }}>
-                                        <Text style={styles.loginButtonTitle}>Lịch sử mua hàng</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.accountButton} onPress={() => {
-                                        this.props.navigation.navigate('UpdatePassword', {
-                                            user_name: this.props.navigation.getParam('user_name')
-                                        });
-                                    }}>
-                                        <Text style={styles.loginButtonTitle}>Đổi mật khẩu</Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.accountButton} onPress={() => {
-                                        log_out();
-                                        this.props.navigation.navigate('Setting', {
-                                            user_name: ""
-                                        });
-                                    }}>
-                                        <Text style={styles.loginButtonTitle}>Đăng xuất</Text>
-                                    </TouchableOpacity>
-
-                                </View>
-                                :
-                                <View style={styles.down}>
-                                    <TouchableOpacity>
-                                        <TouchableOpacity style={styles.loginButton} onPress={() => {
-                                            this.props.navigation.navigate('Login');
-                                        }}>
-                                            <Text style={styles.loginButtonTitle}>LOGIN</Text>
-                                        </TouchableOpacity>
-                                    </TouchableOpacity>
-                                    <Divider style={styles.divider}></Divider>
-                                    <TouchableOpacity style={styles.registerButton} onPress={() => {
-                                        this.props.navigation.navigate('Register');
-                                    }}>
-                                        <Text style={styles.loginButtonTitle}>REGISTER</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            }
-                        </View>
-                    </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback>
+                    </ScrollView>
                 )}
             </CartContexts.Consumer>
 
@@ -165,6 +223,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgb(221, 97, 97)',
         marginTop: 20
+    },
+    accountButtonUser: {
+        width: 300,
+        height: 45,
+        borderRadius: 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(221, 97, 97)',
+        marginTop: 20,
+        marginBottom: 20
     },
     loginButtonTitle: {
         fontSize: 18,
