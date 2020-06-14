@@ -87,13 +87,16 @@ export default class CartProvider extends Component {
         this.setState({ cartItems: newItems, selectAll: (value == true ? false : true) });
     }
     userName = (user_name, ro_le) => {
-        this.setState({ 
+        this.setState({
             username: user_name,
             role: ro_le
         });
     }
     log_out = () => {
-        this.setState({ username: "" });
+        this.setState({
+            username: "",
+            role: ""
+        });
     }
     deleteCart = () => {
         const newItems = [...this.state.cartItems];

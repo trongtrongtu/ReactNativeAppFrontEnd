@@ -69,53 +69,111 @@ class FlatListItem extends Component {
             sectionId: 1
         };
         return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-            }}>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    backgroundColor: 'mediumseagreen'
-                }}>
-                    <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
-                        <Image
-                            source={{ uri: this.props.item.imageUrl }}
-                            style={{ width: 100, height: 100, margin: 5 }}
-                        >
-                        </Image>
-                    </TouchableOpacity>
-                    <View style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        height: 100
-                    }}>
-                        <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
-                        <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
-                    </View>
+            <CartContexts.Consumer>
+                {({ role }) => (
                     <View>
-                        <CartContexts.Consumer>
-                            {({ addToCart }) => (
-                                <TouchableOpacity onPress={() => addToCart(this.props.item)}>
-                                    <Text style={{
-                                        textTransform: 'uppercase',
-                                        fontSize: 16,
-                                        color: 'white',
-                                        marginTop: 85,
-                                        marginRight: 5
-                                    }}>MUA +</Text>
-                                </TouchableOpacity>
-                            )}
-                        </CartContexts.Consumer>
-                    </View>
-                </View>
-                <View style={{
-                    height: 1,
-                    backgroundColor: 'white'
-                }}>
+                        {role == 'admin' ?
+                            <Swipeout {...swipeSettings}>
+                                <View style={{
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                }}>
+                                    <View style={{
+                                        flex: 1,
+                                        flexDirection: 'row',
+                                        backgroundColor: 'mediumseagreen'
+                                    }}>
+                                        <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
+                                            <Image
+                                                source={{ uri: this.props.item.imageUrl }}
+                                                style={{ width: 100, height: 100, margin: 5 }}
+                                            >
+                                            </Image>
+                                        </TouchableOpacity>
+                                        <View style={{
+                                            flex: 1,
+                                            flexDirection: 'column',
+                                            height: 100
+                                        }}>
+                                            <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
+                                            <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
+                                        </View>
+                                        <View>
+                                            <CartContexts.Consumer>
+                                                {({ addToCart }) => (
+                                                    <TouchableOpacity onPress={() => addToCart(this.props.item)}>
+                                                        <Text style={{
+                                                            textTransform: 'uppercase',
+                                                            fontSize: 16,
+                                                            color: 'white',
+                                                            marginTop: 85,
+                                                            marginRight: 5
+                                                        }}>MUA +</Text>
+                                                    </TouchableOpacity>
+                                                )}
+                                            </CartContexts.Consumer>
+                                        </View>
+                                    </View>
+                                    <View style={{
+                                        height: 1,
+                                        backgroundColor: 'white'
+                                    }}>
 
-                </View>
-            </View>
+                                    </View>
+                                </View>
+                            </Swipeout>
+                            :
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'column',
+                            }}>
+                                <View style={{
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    backgroundColor: 'mediumseagreen'
+                                }}>
+                                    <TouchableOpacity activeOpacity={0.5} onPress={this.props.onPress}>
+                                        <Image
+                                            source={{ uri: this.props.item.imageUrl }}
+                                            style={{ width: 100, height: 100, margin: 5 }}
+                                        >
+                                        </Image>
+                                    </TouchableOpacity>
+                                    <View style={{
+                                        flex: 1,
+                                        flexDirection: 'column',
+                                        height: 100
+                                    }}>
+                                        <Text style={styles.flatListItem}>{this.state.item.name ? this.state.item.name : this.props.item.name}</Text>
+                                        <Text style={styles.flatListItem}>{this.state.item.productDescription ? this.state.item.productDescription : this.props.item.productDescription}</Text>
+                                    </View>
+                                    <View>
+                                        <CartContexts.Consumer>
+                                            {({ addToCart }) => (
+                                                <TouchableOpacity onPress={() => addToCart(this.props.item)}>
+                                                    <Text style={{
+                                                        textTransform: 'uppercase',
+                                                        fontSize: 16,
+                                                        color: 'white',
+                                                        marginTop: 85,
+                                                        marginRight: 5
+                                                    }}>MUA +</Text>
+                                                </TouchableOpacity>
+                                            )}
+                                        </CartContexts.Consumer>
+                                    </View>
+                                </View>
+                                <View style={{
+                                    height: 1,
+                                    backgroundColor: 'white'
+                                }}>
+
+                                </View>
+                            </View>
+                        }
+                    </View>
+                )}
+            </CartContexts.Consumer>
         );
     }
 }
