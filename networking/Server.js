@@ -246,6 +246,15 @@ async function listUSers() {
         console.error(`Error is : ${error}`);
     }
 }
+async function managementOrder() {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/list_order_users`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
@@ -261,3 +270,4 @@ export { checkout };
 export { update_password };
 export { historyOrder };
 export { listUSers };
+export { managementOrder };
