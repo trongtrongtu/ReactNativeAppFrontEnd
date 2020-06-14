@@ -78,7 +78,6 @@ export default class Setting extends Component {
                                                     <Text style={styles.loginButtonTitle}>Đăng xuất</Text>
                                                 </TouchableOpacity>
                                                 <TouchableOpacity style={styles.accountButton} onPress={() => {
-                                                    log_out();
                                                     this.props.navigation.navigate('Setting', {
                                                         user_name: ""
                                                     });
@@ -86,8 +85,7 @@ export default class Setting extends Component {
                                                     <Text style={styles.loginButtonTitle}>Quản lý đơn hàng</Text>
                                                 </TouchableOpacity>
                                                 <TouchableOpacity style={styles.accountButtonUser} onPress={() => {
-                                                    log_out();
-                                                    this.props.navigation.navigate('Setting', {
+                                                    this.props.navigation.navigate('ListUSers', {
                                                         user_name: ""
                                                     });
                                                 }}>

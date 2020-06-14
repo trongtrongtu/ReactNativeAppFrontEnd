@@ -237,6 +237,15 @@ async function historyOrder(user_name) {
         console.error(`Error is : ${error}`);
     }
 }
+async function listUSers() {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/list_all_users`);
+        let responseJson = await response.json();
+        return responseJson.data;
+    } catch {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
@@ -251,3 +260,4 @@ export { update_user };
 export { checkout };
 export { update_password };
 export { historyOrder };
+export { listUSers };
