@@ -17,7 +17,10 @@ function Item({ item }) {
     );
 }
 
-export default class App extends React.Component {
+export default class ListUSers extends React.Component {
+    static navigationOptions = {
+        title: 'Quản lý khách hàng'
+    };
     constructor(props) {
         super(props);
         this.state = {

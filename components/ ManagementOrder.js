@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, Button, Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator, TextInput, Alert } from 'react-native';
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import SelectInput from 'react-native-select-input-ios'
 import { CartContexts } from '../contexts/Cart'
 import CheckoutModal from '../components/CheckoutModal';
 import { managementOrder } from '../networking/Server'
+import { modifiedOrder } from '../networking/Server'
 
 export default class ManagementOrder extends Component {
+    static navigationOptions = {
+        title: 'Quản lý đơn hàng'
+    };
     constructor(props) {
         super(props);
         this.state = ({
@@ -53,8 +58,24 @@ export default class ManagementOrder extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={[styles.centerElement, { width: 50 }]}>
-                                <Text style={{ color: 'red' }}>{item.trang_thai}</Text>
+                            <View style={[styles.centerElement, { width: 100 }]}>
+                                <SelectInput
+                                    value={item.trang_thai}
+                                    onValueChange={(value) => {
+                                        modifiedOrder(item._id, value).then(() => {
+                                            managementOrder().then((orderFromServer) => {
+                                                this.setState({
+                                                    itemOrder: orderFromServer
+                                                });
+                                            }).catch((error) => {
+                                                console.error(error);
+                                            });
+                                        })
+                                    }}
+                                    options={[
+                                        { value: 'ĐANG XỬ LÝ', label: 'ĐANG XỬ LÝ' },
+                                        { value: 'ĐANG GIAO HÀNG', label: 'ĐANG GIAO' },
+                                        { value: 'ĐÃ GIAO HÀNG', label: 'ĐÃ GIAO' }]} />
                             </View>
                         </View>
                     ))}

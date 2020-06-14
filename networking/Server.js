@@ -255,6 +255,25 @@ async function managementOrder() {
         console.error(`Error is : ${error}`);
     }
 }
+async function modifiedOrder(order_id, trang_thai) {
+    try {
+        let response = await fetch(`http://${IpAddress}:3001/modified_order`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                order_id: order_id,
+                trang_thai: trang_thai
+            })
+        });
+        let responseJson = await response.json();
+        return responseJson.result;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
 export { getProductsFromServer };
 export { insertNewProductToServer };
 export { updateAProduct };
@@ -271,3 +290,4 @@ export { update_password };
 export { historyOrder };
 export { listUSers };
 export { managementOrder };
+export { modifiedOrder };

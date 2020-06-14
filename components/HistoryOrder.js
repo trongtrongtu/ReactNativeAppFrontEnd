@@ -6,6 +6,9 @@ import CheckoutModal from '../components/CheckoutModal';
 import { historyOrder } from '../networking/Server'
 
 export default class HistoryOrder extends Component {
+    static navigationOptions = {
+        title: 'Lịch sử mua hàng'
+    };
     constructor(props) {
         super(props);
         this.state = ({
